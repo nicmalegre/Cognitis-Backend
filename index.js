@@ -20,7 +20,7 @@ app.listen(PORT, () => {
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key: "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",
+      api_key: "API_KEY",
     },
   })
 );
