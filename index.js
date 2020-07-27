@@ -18,7 +18,7 @@ app.listen(PORT, () => {
 const transporter = nodemailer.createTransport(
   sendgridTransport({
     auth: {
-      api_key: "API_KEY",
+      api_key: "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",
     },
   })
 );
@@ -38,13 +38,20 @@ app.post("/api/verificationcode", function (req, res) {
     code += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
 
+  //expire at
+  let currentTime = new Date();
+  let thirtyMinutesLater = new Date(currentTime.getTime() + (30*60*1000));
+
   //send email
   try {
     transporter.sendMail({
       to: req.body.mail,
       from: "sebasrz.rcia@gmail.com",
       subject: "Verification Code",
-      html: `<div> <h2>Your verification code is: ${code}</h2> </div>`,
+      html: `<div> 
+                <h2>Your verification code is: ${code}</h2> 
+                <p>This code expire at ${thirtyMinutesLater.getHours()}:${thirtyMinutesLater.getMinutes()} from ${thirtyMinutesLater.toDateString()}</p>
+              </div>`,
     });
   } catch (error) {
     console.log("Error try send email", error);
@@ -52,5 +59,6 @@ app.post("/api/verificationcode", function (req, res) {
 
   res.json({
     verificationCode: code,
+    expireAt: thirtyMinutesLater
   });
 });
