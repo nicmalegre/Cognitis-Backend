@@ -4,7 +4,7 @@ const db = require('../db');
 //const express = require("express");
 //const router = express.Router();
 
-const User = db.define('dbo_user', {
+const User = db.define('dbo_usertemp', {
     product: {
         type: DataTypes.INTEGER,
         allowNull: true
@@ -20,7 +20,11 @@ const User = db.define('dbo_user', {
     country: {
         type: DataTypes.STRING,
         allowNull: true
-    }
-})
+    }}, 
+    {
+        timestamps: false,
+        freezeTableName: true }
+)
+
 
 module.exports = User;
