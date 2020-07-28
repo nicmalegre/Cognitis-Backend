@@ -4,8 +4,16 @@ const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const sendridTransport = require("nodemailer-sendgrid-transport");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
+const db = require('./db')
 
 const PORT = process.env.PORT || 3000;
+
+//CONEXION CON LA BASE DE DATOS
+db.authenticate().then(() => {console.log('Connection has been established successfully.');})
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+
 
 const app = express();
 app.use(cors())
