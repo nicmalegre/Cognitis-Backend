@@ -1,7 +1,10 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const db = require('../db')
+const db = require('../db');
+//const sequelize = new Sequelize('mysql::memory:');
+//const express = require("express");
+//const router = express.Router();
 
-const User = sequelize.define('User', {
+const User = db.define('dbo_user', {
     product: {
         type: DataTypes.INTEGER,
         allowNull: true
