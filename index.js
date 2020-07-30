@@ -19,8 +19,9 @@ db.authenticate()
 const app = express();
 app.use(cors());
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
   console.log(`Running on port ${PORT}`);
