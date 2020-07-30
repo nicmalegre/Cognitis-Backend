@@ -26,5 +26,8 @@
     "nodemailer-sendgrid-transport": "^0.2.0",
     "nodemon": "^2.0.4",
     "sequelize": "^6.3.3"
+  },
+  "engines":{
+    "node": "12.11.1"
   }
 }
