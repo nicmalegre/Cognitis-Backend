@@ -4,7 +4,7 @@
   "description": "Backend for Cognitivis360 development.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "npm server.js"
   },
   "repository": {
     "type": "git",
