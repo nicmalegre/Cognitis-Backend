@@ -1,9 +1,6 @@
 {
   "name": "Cognitis-Backend",
   "version": "1.0.0",
-  "engines":{
-    "node": "12.11.1"
-  },
   "description": "Backend for Cognitivis360 development.",
   "main": "index.js",
   "scripts": {
@@ -30,5 +27,8 @@
     "nodemon": "^2.0.4",
     "sequelize": "^6.3.3"
   },
+  "engines": {
+    "node": "12.11.1"
+  }
   
 }
