@@ -42,5 +42,28 @@ router.post('/saveuser', (req, res) => {
     res.send('Usuario guardado en la base de datos')
 });
 
+router.post('/emailverification', async(req, res) => {
+    const user = await User.findOne({
+        where: {
+            mail: req.body.mail
+        }
+    })
+
+    if(user){
+        console.log('already used');
+        console.log(user);
+        res.json({
+            'alreadyUsed' : true
+        })
+    }else
+    {
+        console.log('not used yet');
+        res.json({
+            'alreadyUsed' : false
+        })
+    }
+})
+
+
 module.exports = router;
 
