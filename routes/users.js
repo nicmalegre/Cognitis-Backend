@@ -13,15 +13,22 @@ router.get("/",(req, res) =>{
     .catch(err => console.log(err));
 })
 
-//When you go to 
-router.get("/user/:mail",(req, res) =>{
-    User.findOne({
-        where: {
-           mail : req.body.mail
-    }
+//FOR DELETE AN USER 'http://localhost:3000/api/users/delete/:mail' FOR THE DATABASE
+router.get('/', async(req, res) => {
+    const users = await User.findAll();
+    res.send(users)
+})
+
+/*router.get("/",(req, res) =>{
+    User.findAll()
+    .then(users => {
+        res.send(users)
     })
     .catch(err => console.log(err));
-})
+})*/
+
+
+
 
 //POST Method for save an user to the database. You have to include product, mail, password, country when you call this function.
 router.post('/saveuser', (req, res) => {  
