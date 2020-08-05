@@ -17,6 +17,10 @@ const User = db.define('dbo_usertemp', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    passwordExpired: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true
+    },
     country: {
         type: DataTypes.STRING,
         allowNull: true
