@@ -1,8 +1,8 @@
 const express = require('express');
+const session = require("express-session");
 const router = express.Router();
 const User = require('../models/User')
 const db = require('../db');
-const app = express();
 
 //When you go to 'http://localhost:3000/api/users' you will get all the users stored in the database
 router.get("/",(req, res) =>{
@@ -72,10 +72,8 @@ router.post('/getUser', async(req, res) => {
             mail: req.body.mail
         }
     })
-
     if(user){
-        console.log('already used');
-        console.log(user);
+        console.log(req.session.user_id)
         res.send(user)
     }else
     {

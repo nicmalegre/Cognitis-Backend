@@ -1,9 +1,18 @@
 const express = require("express");
+const session = require("express-session");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
 const sendgridTransport = require("nodemailer-sendgrid-transport");
 const db = require("./db");
+
+const app = express();
+
+app.use(session({
+  secret: 'ESTO ES SECRETO',
+  resave: true,
+  saveUninitialized: true
+}))
 
 const PORT = process.env.PORT || 3000;
 
@@ -16,7 +25,7 @@ db.authenticate()
     console.error("Unable to connect to the database:", err);
   });
 
-const app = express();
+
 app.use(cors());
 
 
@@ -36,7 +45,8 @@ const transporter = nodemailer.createTransport(
 );
 
 app.get("/", function (req, res) {
-  res.send("Hello Cognities!");
+  req.session.user_id = "user Session"
+  res.send(req.session.user_id);
 });
 
 // verification Code route
@@ -44,3 +54,7 @@ app.use("/api/verificationcode", require("./routes/verificationCode"));
 
 //users routes
 app.use("/api/users", require("./routes/users"))
+
+/*app.use('/api/users/', function (req, res, next) {
+  next()
+})*/
