@@ -14,8 +14,6 @@ app.use(session({
   saveUninitialized: true
 }))
 
-const PORT = process.env.PORT || 3000;
-
 //connect to database
 db.authenticate()
   .then(() => {
@@ -32,8 +30,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.listen(PORT, () => {
-  console.log(`Running on port ${PORT}`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Running`);
 });
 
 const transporter = nodemailer.createTransport(
