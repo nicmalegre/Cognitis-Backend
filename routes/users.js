@@ -4,39 +4,6 @@ const User = require("../models/User");
 const db = require("../db");
 const session = require("express-session");
 
-router.get("/test", (req, res) => {
-  console.log("Req Sessions", req.session);
-  if (req.session.user) {
-    if (req.session.user.role === "admin") {
-      res.send(
-        `Hello ${req.session.user.name}, you are a ${req.session.user.role}`
-      );
-    } else {
-      res.send(
-        `Hello ${req.session.user.name}, you arent a ${req.session.user.role}`
-      );
-    }
-  }else {
-      res.send('Please register after enter here')
-    }
-});
-
-router.get("/logout", (req, res) => {
-  req.session.destroy();
-
-  res.send('Session logout');
-})
-
-router.get("/login", (req, res) => {
-  req.session.user = {
-    name: "sebastian",
-    pass: "12345",
-    role: "admin",
-  };
-  console.log(req.session.user);
-  res.send("Users Login");
-});
-
 router.post("/saveuser", (req, res) => {
   const user = User.build({
     product: req.body.product,
