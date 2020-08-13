@@ -35,6 +35,9 @@ const transporter = nodemailer.createTransport(
 );
 
 app.get("/", function (req, res) {
+  session.user_name = "sebastian"
+  console.log('Session',session)
+  console.log('Req Session',req.session)
   res.send("Hello Cognities!");
 });
 
