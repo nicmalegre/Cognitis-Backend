@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('port',process.env.PORT || 3000)
 
 app.listen(app.get('port'), () => {
-  console.log(`Running ${ app.get('port')}`);
+  console.log(`Running on the port ${ app.get('port')}`);
 });
 
 const transporter = nodemailer.createTransport(
