@@ -17,13 +17,13 @@ router.post("/saveuser", (req, res) => {
       //In case the email does not exist in the DB, the password is encrypted
       if (!usuario) {
         let hash = await bcrypt.hash(req.body.password, 10);
-        const user = User.build({
+        const Newuser = user.build({
           product: req.body.product,
           mail: req.body.mail,
           password: hash,
           country: req.body.country,
         });
-        user.save();
+        Newuser.save();
         res.send("Usuario guardado en la base de datos");
       }
       // If email exists in BD, please reply error message
