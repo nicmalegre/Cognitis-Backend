@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport(
 
 //Routes
 app.get("/", function (req, res) {
-  res.send("Hello Cognities!");
+  res.send("Hello Cognititiviisssss");
 });
 
 // verification Code route
