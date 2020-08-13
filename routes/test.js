@@ -1,4 +1,4 @@
-   User.findOne({
+   user.findOne({
         where: {
            mail : req.body.mail
    }

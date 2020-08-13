@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/User");
+const user = require("../models/user");
 const db = require("../db");
 const bcrypt = require('bcrypt');
 
@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 //Register
 router.post("/saveuser", (req, res) => {
   //Check if the email exists in the DB
-  User.findOne({
+  user.findOne({
     where: {
       mail: req.body.mail,
     },
