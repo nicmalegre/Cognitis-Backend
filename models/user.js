@@ -4,7 +4,7 @@ const db = require('../db');
 //const express = require("express");
 //const router = express.Router();
 
-const user = db.define('dbo_usertemp', {
+const user = db.define('users', {
     product: {
         type: DataTypes.INTEGER,
         allowNull: true
