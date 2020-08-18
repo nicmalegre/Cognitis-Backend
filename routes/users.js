@@ -1,11 +1,9 @@
-const express = require("express");
 const express = require('express');
 const session = require("express-session");
-const router = express.Router();
 const user = require("../models/user");
 const db = require("../db");
 const bcrypt = require('bcrypt');
-
+const router = express.Router();
 
 //Register
 router.post("/saveuser", (req, res) => {
@@ -32,9 +30,15 @@ router.post("/saveuser", (req, res) => {
       else {
         res.json({ error: "el usuario ya existe" });
       }
-//When you go to 'http://localhost:3000/api/users' you will get all the users stored in the database
+    })
+    .catch((err) => {
+      res.send("error:" + err);
+    });
+  });
+
+  //When you go to 'http://localhost:3000/api/users' you will get all the users stored in the database
 router.get("/",(req, res) =>{
-    User.findAll()
+    user.findAll()
     .then(users => {
         res.send(users)
     })
@@ -42,11 +46,11 @@ router.get("/",(req, res) =>{
 })
 
 //FOR DELETE AN USER 'http://localhost:3000/api/users/delete/:mail' FOR THE DATABASE
-router.get('/', async(req, res) => {
-    const users = await User.findAll();
+/*router.get('/', async(req, res) => {
+    const users = await user.findAll();
     res.send(users)
 })
-
+*/
 /*router.get("/",(req, res) =>{
     User.findAll()
     .then(users => {
@@ -56,23 +60,10 @@ router.get('/', async(req, res) => {
 })*/
 
 
-//POST Method for save an user to the database. You have to include product, mail, password, country when you call this function.
-router.post('/saveuser', (req, res) => {  
-    const user =  User.build({
-        product: req.body.product,
-        mail: req.body.mail,
-        password: req.body.password,
-        country: req.body.country
-    })
-    .catch((err) => {
-      res.send("error:" + err);
-    });
-});
-
 //Login
 router.post("/login", (req, res) => {
   //console.log(req.body);
-  User.findOne({
+  user.findOne({
     where: {
       mail: req.body.mail,
     },
@@ -92,17 +83,18 @@ router.post("/login", (req, res) => {
       res.send("error:" + err);
     });
 });
+
 //POST FOR CONTROL IF THE EMAIL EXISTS IN THE DATABASE
 router.post('/emailverification', async(req, res) => {
-    const user = await User.findOne({
+    const newuser = await user.findOne({
         where: {
             mail: req.body.mail
         }
     })
 
-    if(user){
+    if(newuser){
         console.log('already used');
-        console.log(user);
+        console.log(newuser);
         res.json({
             'alreadyUsed' : true
         })
@@ -117,14 +109,14 @@ router.post('/emailverification', async(req, res) => {
 
 //POST FOR FIND ONE USER WITH AN EMAIL
 router.post('/getUser', async(req, res) => {
-    const user = await User.findOne({
+    const newuser = await user.findOne({
         where: {
             mail: req.body.mail
         }
     })
-    if(user){
+    if(newuser){
         console.log(req.session.user_id)
-        res.send(user)
+        res.send(newuser)
     }else
     {
         res.send(false)
@@ -133,7 +125,7 @@ router.post('/getUser', async(req, res) => {
 
 //PUT Method for update the passwordExpired field of one user
 router.put('/updateUser/:mail', function (req, res) {
-    User.update(
+    user.update(
         {passwordExpired: req.body.passwordExpired},
         {returning: true, where: {mail: req.params.mail} }
     )
