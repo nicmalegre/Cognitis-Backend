@@ -1,8 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const db = require('../db');
-//const sequelize = new Sequelize('mysql::memory:');
-//const express = require("express");
-//const router = express.Router();
 
 const products = db.define('products', {
     product_id:{
