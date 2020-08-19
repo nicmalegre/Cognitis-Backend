@@ -1,17 +1,22 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const db = require('../db');
 
-const industry = db.define('industry', {
-    industry_id: {
+
+const category = db.define('category', {
+    category_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
-    industry_name: {
+    category_name: {
         type: DataTypes.STRING,
         allowNull: false
+    }}, 
+    {
+        timestamps: false,
+        freezeTableName: true 
     }
-})
+)
 
-module.exports = industry;
+module.exports = category;

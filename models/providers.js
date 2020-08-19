@@ -1,36 +1,32 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
 
-const user = db.define(
-  "users",
+const providers = db.define(
+  "providers",
   {
-    user_id: {
+    provider_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
+      autoIncrement: true,
     },
-    user_name: {
+    provider_cuit: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    provider_address: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    user_mail: {
+    provider_tel: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    user_password: {
+    provider_name: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    user_password_expired: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-    },
-    user_branch_office_house_id: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    users_role_id: {
+    provider_email: {
       type: DataTypes.STRING,
       allowNull: true,
     },
@@ -41,4 +37,4 @@ const user = db.define(
   }
 );
 
-module.exports = user;
+module.exports = providers;
