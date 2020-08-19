@@ -8,6 +8,7 @@ const {getUsers} =require('../controllers/usercontrollers')
 const {getUser} =require('../controllers/usercontrollers')
 const {saveUser} =require('../controllers/usercontrollers')
 const {emailVerification} =require('../controllers/usercontrollers')
+const {updatePasswExpired} =require('../controllers/usercontrollers')
 
 //When you go to '/api/users/' you will get all the users stored in the database
 router.route('/')  
@@ -17,13 +18,18 @@ router.route('/')
 router.route('/getuser/')  
   .post(getUser)
 
-//For save one new user
+
+//FOR SAVE ONE NEW USER
 router.route('/saveuser/')  
 .post(saveUser)
 
 //POST FOR CONTROL IF THE EMAIL EXISTS IN THE DATABASE
 router.route('/emailverification/')  
 .post(emailVerification)
+
+//POST FOR UPDATE THE PASSWORDEXPIRED THE ONE USER
+router.route('/update/user/:user_mail')
+  .put(updatePasswExpired)
 
 //Login
 router.post("/login", (req, res) => {
@@ -48,16 +54,6 @@ router.post("/login", (req, res) => {
     });
 });
 
-
-//PUT Method for update the passwordExpired field of one user
-router.put('/updateUser/:mail', function (req, res) {
-    user.update(
-        {passwordExpired: req.body.passwordExpired},
-        {returning: true, where: {mail: req.params.mail} }
-    )
-    .then(res.send("User updated"))
-    .catch(console.log("Can't update the user"))
-   })
 
 router.post("/senduserinvitation", (req, res) => {
   const user = User.build({});
