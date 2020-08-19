@@ -20,7 +20,7 @@ const products_sale_details = db.define('products_sales_details', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    product_sales_status: {
+    product_sales_detail_status: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
       defaultValue: 1,

@@ -83,15 +83,6 @@ const products = db.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
-<<<<<<< HEAD
-    product_size: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
-    product_color: {
-      type: DataTypes.STRING,
-      allowNull: true,
-=======
     product_material: {
         type: DataTypes.STRING,
         allowNull: true
@@ -111,7 +102,6 @@ const products = db.define(
     product_barcode: {
         type: DataTypes.STRING,
         allowNull: true
->>>>>>> 6bff7d17566c67e97a19fb8fb711b06a9c9077f4
     },
     category: {
       type: DataTypes.INTEGER,
