@@ -1,17 +1,24 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
 
-const permissions = db.define(
-  "permissions",
+const products_stock = db.define(
+  "products_stock",
   {
-    permission_id: {
+    product_sku: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
     },
-    permission_name: {
+    product_state: {
       type: DataTypes.STRING,
+      allowNull: false,
+    },
+    product_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    provider_id: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
@@ -21,4 +28,4 @@ const permissions = db.define(
   }
 );
 
-module.exports = permissions;
+module.exports = products_stock;
