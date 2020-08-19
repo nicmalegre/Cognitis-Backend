@@ -45,6 +45,11 @@ app.use("/api/company", require("./routes/company"))
 
 //branch office house routes
 app.use("/api/branchofficehouse", require("./routes/branchofficehouse"))
+//users routes
+app.use("/api/head_house", require("./routes/head_house"))
+//products routes
+app.use("/api/products", require("./routes/products"))
+
 
 //starting the app
 app.listen(app.get('port'), () => {
