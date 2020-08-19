@@ -28,7 +28,7 @@ head_houseCrtl.postHead_house= (req,res) => {
             bank_acount:req.body.acount,
             bank_alias: req.body.alias  
         })
-        Newhead_house.save();
+        Newuser.save();
         Newbank.save(),
         res.send("head house register");
       }
@@ -40,8 +40,6 @@ head_houseCrtl.postHead_house= (req,res) => {
     .catch((err) => {
       res.send("error:" + err);
     });
-  });
-}
-
+  }
 //export module
 module.exports = head_houseCrtl;
