@@ -40,8 +40,6 @@ head_houseCrtl.postHead_house= (req,res) => {
     .catch((err) => {
       res.send("error:" + err);
     });
-  });
-}
-
+  }
 //export module
 module.exports = head_houseCrtl;
