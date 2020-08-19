@@ -38,7 +38,7 @@ const head_house = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    bank_id: {
+    bank_head_house_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

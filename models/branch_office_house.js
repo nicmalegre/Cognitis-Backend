@@ -18,7 +18,7 @@ const branch_office_house = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    branch_office_bussines_name: {
+    branch_office_business_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -46,7 +46,7 @@ const branch_office_house = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    branch_office_house_bank_id: {
+    bank_branch_office_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
