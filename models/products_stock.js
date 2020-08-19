@@ -9,9 +9,10 @@ const products_stock = db.define(
       allowNull: false,
       primaryKey: true,
     },
-    product_state: {
+    product_status: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: 1
     },
     product_id: {
       type: DataTypes.INTEGER,
@@ -20,7 +21,7 @@ const products_stock = db.define(
     provider_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
+    }
   },
   {
     timestamps: false,

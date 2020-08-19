@@ -12,9 +12,14 @@ const products_images = db.define('products_images', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    imagen_product_id: {
+    image_product_id: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    image_product_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
     }
 }, 
     {

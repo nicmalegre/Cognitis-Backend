@@ -21,10 +21,15 @@ const banks_head_house = db.define(
     bank_headhouse_cbu: {
       type: DataTypes.INTEGER(11),
       allowNull: false,
-  },
+    },
     bank_headhouse_alias: {
       type: DataTypes.STRING,
       allowNull: false,
+    },
+    bank_head_house_status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: 1
     },
     headhouse_id: {
       type: DataTypes.INTEGER,

@@ -25,6 +25,11 @@ const sales_details = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    sales_details_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    }
   },
   {
     timestamps: false,
