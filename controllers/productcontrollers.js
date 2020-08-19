@@ -115,6 +115,59 @@ userCrtl.saveProduct= async(req,res) => {
 }
 
 
+//Update one product
+userCrtl.updateProduct= async(req,res) => {
+    
+    product.findOne({
+        where: {
+            product_code: req.body.product_code,
+        },
+    })
+    
+    .then(async(producto) => {
+            product.update(
+                    {product_name: req.body.product_name},
+                    {product_description: req.body.product_description},
+                    {product_brand: req.body.product_brand},
+                    {product_type: req.body.product_type},
+                    {product_is_dollar: req.body.product_is_dollar},
+                    {product_in_ecommerce: req.body.product_in_ecommerce},
+                    {product_unit: req.body.product_unit},
+                    {product_vol: req.body.product_vol},
+                    {product_bultos: req.body.product_bultos},
+                    {product_bultos_clientes: req.body.product_bultos_clientes},
+                    {product_minimium_margin: req.body.product_minimium_margin},
+                    {product_maximium_margin: req.body.product_maximium_margin},  
+                    {product_price: req.body.product_price},  
+                    {product_bonification: req.body.product_bonification},
+                    {product_price_bonification: req.body.product_price_bonification},    
+                    {product_freight_cost: req.body.product_freight_cost},    
+                    {product_accountant_type: req.body.product_accountant_type},    
+                    {product_accountant_account: req.body.product_accountant_account},
+                    {product_size: req.body.product_size},
+                    {product_color: req.body.product_color},
+                    {category: req.body.category},
+                    {products_industry_id: req.body.products_industry_id}
+            )
+            .then(res.send("Product updated"))
+            .catch(console.log("Can't update the product"))
+    })
+    .catch((err) => {
+    res.send("error:" + err);
+    });
+}
+
+
+//Logical Delete of product
+userCrtl.deleteLogical= async(req,res) => {
+    product.update(
+        {product_state: req.body.product_state},
+        
+    )
+    .then(res.send("State updated"))
+    .catch(console.log("Can't update the state"))
+}
+
 
 //export module
 module.exports = userCrtl;
