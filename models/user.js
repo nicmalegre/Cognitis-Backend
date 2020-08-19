@@ -5,23 +5,33 @@ const db = require('../db');
 //const router = express.Router();
 
 const user = db.define('users', {
-    product: {
+    user_id:{
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true
     },
-    mail: {
+    user_name: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    password: {
+    user_mail: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    passwordExpired: {
+    user_password: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    user_password_expired: {
         type: DataTypes.BOOLEAN,
         allowNull: true
     },
-    country: {
+    user_branch_office_house_id: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    users_role_id: {
         type: DataTypes.STRING,
         allowNull: true
     }}, 
