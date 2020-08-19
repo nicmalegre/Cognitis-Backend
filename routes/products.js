@@ -3,7 +3,7 @@ const session = require("express-session");
 const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const {getProducts, getProduct} =require('../controllers/productcontrollers')
+const {getProducts, getProduct, saveProduct} =require('../controllers/productcontrollers')
 const {getProductsWFilters} =require('../controllers/productcontrollers')
 
 
@@ -15,9 +15,14 @@ router.route('/')
   router.route('/filters')  
   .get(getProductsWFilters)
 
-    //When you go to 'http://localhost:3000/api/products/getproduct' you will get the product with id stored in the database
+  //When you go to 'http://localhost:3000/api/products/getproduct' you will get the product with id stored in the database
   router.route('/getproduct')  
   .get(getProduct)
+
+  //POST FOR SAVE ONE PRODUCT
+  router.route('/saveproduct')  
+  .post(saveProduct)
+
 
 
 module.exports = router;
