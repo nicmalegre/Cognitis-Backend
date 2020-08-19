@@ -6,8 +6,8 @@ const router = express.Router();
 const {getProducts} =require('../controllers/productcontrollers')
 
 
-  //When you go to 'http://localhost:3000/api/products/todos' you will get all the users stored in the database
-router.route('/todos')  
+  //When you go to 'http://localhost:3000/api/products/' you will get all the users stored in the database
+router.route('/')  
   .get(getProducts)
 
 
