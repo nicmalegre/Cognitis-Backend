@@ -1,16 +1,16 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
 
-const permissions = db.define(
-  "permissions",
+const industry = db.define(
+  "industry",
   {
-    permission_id: {
+    industry_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
-    permission_name: {
+    industry_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -21,4 +21,4 @@ const permissions = db.define(
   }
 );
 
-module.exports = permissions;
+module.exports = industry;

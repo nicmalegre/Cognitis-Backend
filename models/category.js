@@ -2,14 +2,14 @@ const { Sequelize, DataTypes } = require('sequelize');
 const db = require('../db');
 
 
-const roles = db.define('roles', {
-    role_id: {
+const category = db.define('category', {
+    category_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
     },
-    role_name: {
+    category_name: {
         type: DataTypes.STRING,
         allowNull: false
     }}, 
@@ -19,4 +19,4 @@ const roles = db.define('roles', {
     }
 )
 
-module.exports = roles;
+module.exports = category;

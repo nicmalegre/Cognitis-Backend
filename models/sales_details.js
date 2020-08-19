@@ -1,23 +1,27 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const db = require("../db");
+//const sequelize = new Sequelize('mysql::memory:');
+//const express = require("express");
+//const router = express.Router();
 
-const products_stock = db.define(
-  "products_stock",
+const sales_details = db.define(
+  "sales_details",
   {
-    product_sku: {
+    sales_details_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      autoIncrement: true,
       primaryKey: true,
     },
-    product_state: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    product_id: {
+    sales_details_sales_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    provider_id: {
+    stock_products_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    sales_details_product_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
@@ -28,4 +32,4 @@ const products_stock = db.define(
   }
 );
 
-module.exports = products_stock;
+module.exports = user;
