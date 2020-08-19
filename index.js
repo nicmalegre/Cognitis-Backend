@@ -40,6 +40,9 @@ app.use("/api/verificationcode", require("./routes/verificationCode"));
 //users routes
 app.use("/api/users", require("./routes/users"))
 
+//products routes
+app.use("/api/products", require("./routes/products"))
+
 
 //starting the app
 app.listen(app.get('port'), () => {

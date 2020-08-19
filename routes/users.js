@@ -5,6 +5,7 @@ const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const {getUsers} =require('../controllers/usercontrollers')
+const {updatePasswExpired} =require('../controllers/usercontrollers')
 
 //Register
 router.post("/saveuser", (req, res) => {
@@ -40,6 +41,9 @@ router.post("/saveuser", (req, res) => {
   //When you go to 'http://localhost:3000/api/users' you will get all the users stored in the database
 router.route('/todos')  
   .get(getUsers)
+
+router.route('/update/user/:user_mail')
+  .put(updatePasswExpired)
 
 //FOR DELETE AN USER 'http://localhost:3000/api/users/delete/:mail' FOR THE DATABASE
 /*router.get('/', async(req, res) => {
@@ -119,15 +123,7 @@ router.post('/getUser', async(req, res) => {
     }
 })
 
-//PUT Method for update the passwordExpired field of one user
-router.put('/updateUser/:mail', function (req, res) {
-    user.update(
-        {passwordExpired: req.body.passwordExpired},
-        {returning: true, where: {mail: req.params.mail} }
-    )
-    .then(res.send("User updated"))
-    .catch(console.log("Can't update the user"))
-   })
+
 
 router.post("/senduserinvitation", (req, res) => {
   const user = User.build({});
