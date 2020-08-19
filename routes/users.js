@@ -4,6 +4,7 @@ const user = require("../models/user");
 const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
+const {getUsers} =require('../controllers/usercontrollers')
 
 //Register
 router.post("/saveuser", (req, res) => {
@@ -37,13 +38,8 @@ router.post("/saveuser", (req, res) => {
   });
 
   //When you go to 'http://localhost:3000/api/users' you will get all the users stored in the database
-router.get("/",(req, res) =>{
-    user.findAll()
-    .then(users => {
-        res.send(users)
-    })
-    .catch(err => console.log(err));
-})
+router.route('/todos')  
+  .get(getUsers)
 
 //FOR DELETE AN USER 'http://localhost:3000/api/users/delete/:mail' FOR THE DATABASE
 /*router.get('/', async(req, res) => {
