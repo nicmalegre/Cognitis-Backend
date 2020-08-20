@@ -5,7 +5,8 @@ const banks_head_house = require("../models/banks_head_house");
 
 head_houseCrtl.postHead_house = (req, res) => {
   //Check if the email exists in the DB
-  head_house.findOne({
+  head_house
+    .findOne({
       where: {
         head_cuit: req.body.head_cuit,
       },
@@ -21,37 +22,44 @@ head_houseCrtl.postHead_house = (req, res) => {
           head_tel: req.body.head_tel,
           head_fax: req.body.head_fax,
         });
-          const result = await Newhead_house.save();
-          let head_id = result.dataValues.head_id;
-          const Newbank_head_house = banks_head_house.build({
-            bank_head_house_name: req.body.bank_head_house_name,
-            bank_head_house_account: req.body.bank_head_house_account,
-            bank_head_house_alias: req.body.bank_head_house_alias,
-            bank_head_house_cbu: req.body.bank_head_house_cbu,
-            head_id: head_id,
-          });
-          await Newbank_head_house.save();
-          res.send({
-            message: "Registro head_house and banks_head_house correctamente",
-          });
-          
-          /*await postBanks_headhouse(req, res, head_id);
+        const result = await Newhead_house.save();
+        let head_id = result.dataValues.head_id;
+        const Newbank_head_house = banks_head_house.build({
+          bank_head_house_name: req.body.bank_head_house_name,
+          bank_head_house_account: req.body.bank_head_house_account,
+          bank_head_house_alias: req.body.bank_head_house_alias,
+          bank_head_house_cbu: req.body.bank_head_house_cbu,
+          head_id: head_id,
+        });
+        await Newbank_head_house.save();
+        res.send({
+          message: "Registro head_house and banks_head_house correctamente",
+        });
+
+        /*await postBanks_headhouse(req, res, head_id);
           res.send({
             message: "head_house guardado correctamente",
-          });*/ 
-        }    
-        // If cuil exists in BD, please reply error message
-        else {
-          res.json({ error: "el cuil ya existe" });
-        }
-      })
-        .catch ((error)=>{
-          res.send({
-            message: "Error al intentar añadir head_house",
-            error: error,
-          });
-        });
+          });*/
       }
+      // If cuil exists in BD, please reply error message
+      else {
+        res.json({ error: "el cuil ya existe" });
+      }
+    })
+    .catch((error) => {
+      res.send({
+        message: "Error al intentar añadir head_house",
+        error: error,
+      });
+    });
+};
+
+//GET ALL THE USERS
+head_houseCrtl.getUsers = async (req, res) => {
+  const users = await user.findAll(); //devuelve todos los usuarios
+  res.json(users);
+};
+
 
 //export module
 module.exports = head_houseCrtl;

@@ -36,3 +36,25 @@ exports.createCompany = (req, res) => {
         })
     }
 }
+
+//FIND ALL COMPANY ASSOCIETE WITH AN ID THE HEAD_HOUSE
+exports.getCompanies_headhouse= async(req,res) => {
+    const {head_house_id} = req.params;
+    //busca todas las compañias asociado a una head_house
+    try{
+    const companies_house = await company_house.findAll({
+        attributes: ['company_id','company_name','company_cuit','company_business_name','company_country'],
+        where: {
+            //en el where es lo mismo que head_house_id : head_house_id
+            head_house_id
+        }
+    })
+    res.json({companies_house})
+    }
+    catch(error){
+        res.send({
+            message: 'Error al intentar obtener todas las company asociadas con una head_house',
+            error: error
+        })
+    }
+}
