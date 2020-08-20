@@ -23,7 +23,7 @@ head_houseCrtl.postHead_house= (req,res) => {
           head_fax:req.body.head_fax,
         });
         const result = await Newhead_house.save();
-        console.log("result save",result.dataValues.head_id);
+        result.dataValues.head_id;
       }
       // If email exists in BD, please reply error message
       else {
