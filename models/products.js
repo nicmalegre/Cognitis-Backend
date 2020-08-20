@@ -87,11 +87,23 @@ const products = db.define('products', {
         type: DataTypes.STRING,
         allowNull: true
     },
-    product_size: {
+    product_material: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    product_color: {
+    product_origin: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    product_shipping: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    product_warranty: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    product_barcode: {
         type: DataTypes.STRING,
         allowNull: true
     },
