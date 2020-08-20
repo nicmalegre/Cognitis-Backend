@@ -46,10 +46,6 @@ const company_house = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    bank_company_house_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     timestamps: false,
