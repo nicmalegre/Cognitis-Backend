@@ -1,5 +1,6 @@
 const userCrtl = {};
 const product = require('../models/products');
+const { Op } = require("sequelize");
 
 //GET all products
 userCrtl.getProducts= async(req,res) => {
@@ -9,12 +10,36 @@ userCrtl.getProducts= async(req,res) => {
 
 //GET all products with filters
 userCrtl.getProductsWFilters= async(req,res) => {
-    const products = await product.findAll({
+
+        
+    const products = await product.findAll({   
+             
+        
+        //Codigo y Proveedor estan comentados porque no se encuentran en la tabla de producto
         where: {
-            product_name: req.body.product_name
-            // product_brand: req.body.product_brand,
-            // product_category: req.body.product_category,
+            [Op.or]: {// product_code: {
+            //     [Op.or]:{[Op.eq]: req.body.product_code, [Op.ne]: null}
+            // },
+            product_name: {
+                [Op.and]:{[Op.eq]: req.body.product_name, [Op.ne]: null}
+            },
+            product_brand: {
+                [Op.and]:{[Op.eq]: req.body.product_brand, [Op.ne]: null}
+            },
+            // product_provider: {
+            //     [Op.or]:{[Op.eq]: req.body.product_provider, [Op.ne]: null}
+            // },
+            category: {
+                [Op.and]:{[Op.eq]: req.body.product_category, [Op.ne]: null}
+            },
+            product_type: {
+                [Op.and]:{[Op.eq]: req.body.product_type, [Op.ne]: null}
+            }}
+
         }
+
+  
+
     });
     if (products) {
         res.json(products)
@@ -23,6 +48,8 @@ userCrtl.getProductsWFilters= async(req,res) => {
     }
     
 }
+
+
 
 //GET one product with the id of product
 userCrtl.getProduct= async(req,res) => {
@@ -41,7 +68,7 @@ userCrtl.getProduct= async(req,res) => {
 
 //POST FOR SAVE A NEW PRODUCT
 userCrtl.saveProduct= async(req,res) => {
-    //Check if the email exists in the DB
+    //Check if the product exists in the DB
   product.findOne({
     where: {
         product_name: req.body.product_name,
