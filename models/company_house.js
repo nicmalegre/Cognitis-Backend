@@ -4,7 +4,7 @@ const db = require("../db");
 const company_house = db.define(
   "company_house",
   {
-    company: {
+    company_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       autoIncrement: true,
@@ -46,7 +46,7 @@ const company_house = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    company_house_bank_id: {
+    bank_company_house_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

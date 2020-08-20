@@ -40,6 +40,11 @@ app.use("/api/verificationcode", require("./routes/verificationCode"));
 //users routes
 app.use("/api/users", require("./routes/users"))
 
+//company routes
+app.use("/api/company", require("./routes/company"))
+
+//branch office house routes
+app.use("/api/branchofficehouse", require("./routes/branchofficehouse"))
 //users routes
 app.use("/api/head_house", require("./routes/head_house"))
 //products routes
