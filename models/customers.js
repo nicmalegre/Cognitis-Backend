@@ -34,6 +34,11 @@ const customers = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    customer_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    },
     customer_company_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

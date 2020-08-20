@@ -26,6 +26,11 @@ const banks_branch_office = db.define(
         type: DataTypes.STRING,
         allowNull: false,
     },
+    bank_branch_office_status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: 1
+    },
     branch_office_id: {
         type: DataTypes.INTEGER,
         allowNull: false,

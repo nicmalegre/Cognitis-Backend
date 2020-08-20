@@ -46,6 +46,15 @@ const company_house = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    bank_company_house_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    company_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    }
   },
   {
     timestamps: false,
