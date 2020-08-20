@@ -2,35 +2,28 @@ const head_houseCrtl = {};
 const head_house = require('../models/head_house');
 const bank = require('../models/banks_head_house');
 
-//obtine todas las notas
+
 head_houseCrtl.postHead_house= (req,res) => {
     //Check if the email exists in the DB
   head_house.findOne({
     where: {
-        head_cuit : req.body.cuil,
+        head_cuit : req.body.head_cuit,
     },
   })
     .then(async(current_headhouse) => {
       //In case the email does not exist in the DB, the password is encrypted
       if (!current_headhouse) {
         const Newhead_house = head_house.build({
-          head_name: req.body.name,
-          head_cuit: req.body.cuil,
-          head_business_name: req.body.razonsocial,
-          head_country: req.body.pais,
-          head_email: req.body.email,
-          head_tel: req.body.telefono,
-          head_fax:req.body.fax,
-          bank_id: req.body.id
+          head_name: req.body.head_name,
+          head_cuit: req.body.head_cuit,
+          head_business_name: req.body.head_business_name,
+          head_country: req.body.head_country,
+          head_email: req.body.head_email,
+          head_tel: req.body.head_tel,
+          head_fax:req.body.head_fax,
         });
-        const Newbank = bank.build({
-            bank_name: req.body.namebank,
-            bank_acount:req.body.acount,
-            bank_alias: req.body.alias  
-        })
-        Newuser.save();
-        Newbank.save(),
-        res.send("head house register");
+        Newhead_house.save();
+        console.log(Newhead_house);
       }
       // If email exists in BD, please reply error message
       else {
@@ -41,5 +34,8 @@ head_houseCrtl.postHead_house= (req,res) => {
       res.send("error:" + err);
     });
   }
-//export module
+
+  /*head_houseCrtl.getCompanies= (req,res) => {*/
+
+    //export module
 module.exports = head_houseCrtl;
