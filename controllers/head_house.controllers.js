@@ -1,6 +1,6 @@
 const head_houseCrtl = {};
 const head_house = require('../models/head_house');
-const bank = require('../models/banks');
+const bank = require('../models/banks_head_house');
 
 //obtine todas las notas
 head_houseCrtl.postHead_house= (req,res) => {
