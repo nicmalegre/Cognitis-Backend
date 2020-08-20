@@ -30,6 +30,11 @@ const providers = db.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    provider_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    }
   },
   {
     timestamps: false,

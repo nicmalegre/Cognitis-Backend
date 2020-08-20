@@ -42,6 +42,11 @@ const branch_office_house = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    branch_office_status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: true,
+        defaultValue: 1
+    },
     company_house_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -14,6 +14,11 @@ const industry = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    industry_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    },
   },
   {
     timestamps: false,

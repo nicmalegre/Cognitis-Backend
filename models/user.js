@@ -34,6 +34,11 @@ const user = db.define(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    users_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    }
   },
   {
     timestamps: false,

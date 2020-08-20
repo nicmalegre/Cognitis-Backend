@@ -38,6 +38,15 @@ const head_house = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    head_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    },
+    bank_head_house_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     timestamps: false,

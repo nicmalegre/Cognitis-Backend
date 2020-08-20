@@ -14,6 +14,11 @@ const permissions = db.define(
       type: DataTypes.STRING,
       allowNull: false,
     },
+    permission_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    },
   },
   {
     timestamps: false,
