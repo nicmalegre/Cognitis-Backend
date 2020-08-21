@@ -1,4 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize");
+const branch_office_house = require("./branch_office_house");
+const banks_company_house = require("./banks_company_house");
 const db = require("../db");
 
 const company_house = db.define(
@@ -46,10 +48,6 @@ const company_house = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    bank_company_house_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     company_status: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
@@ -61,5 +59,10 @@ const company_house = db.define(
     freezeTableName: true,
   }
 );
+company_house.hasMany(branch_office_house ,{foreignKey:'company_house_id', sourceKey:'company_id'});
+branch_office_house.belongsTo(company_house, {foreignKey:'company_house_id', sourceKey:'company_id'});
+
+company_house.hasMany(banks_company_house ,{as:"bankcompany",foreignKey:'company_id', sourceKey:'company_id'});
+banks_company_house.belongsTo(company_house,{foreignKey:'company_id', sourceKey:'company_id'})
 
 module.exports = company_house;

@@ -4,11 +4,14 @@ const user = require("../models/user");
 const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const companyController = require('../controllers/company_house')
+const companyController = require('../controllers/company_house.controllers')
 
 router.route('/').get(companyController.getAllCompanies)
 
 router.route('/newcompany').post(companyController.createCompany)
 
+router.route('/headhouse/:head_house_id').get(companyController.getCompanies_headhouse)
+
+router.route('/headhouse/:head_house_id/company/:company_id').put(companyController.putCompany)
 
 module.exports = router;

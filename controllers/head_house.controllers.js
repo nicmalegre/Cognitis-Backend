@@ -1,45 +1,65 @@
 const head_houseCrtl = {};
-const head_house = require('../models/head_house');
-const bank = require('../models/banks_head_house');
+const head_house = require("../models/head_house");
+const banks_head_house = require("../models/banks_head_house");
+//const {postBanks_headhouse} = require("./banks_headhouse.controllers");
 
-//obtine todas las notas
-head_houseCrtl.postHead_house= (req,res) => {
-    //Check if the email exists in the DB
-  head_house.findOne({
-    where: {
-        head_cuit : req.body.cuil,
-    },
-  })
-    .then(async(current_headhouse) => {
-      //In case the email does not exist in the DB, the password is encrypted
-      if (!current_headhouse) {
+head_houseCrtl.postHead_house = (req, res) => {
+  //Check if the email exists in the DB
+  head_house
+    .findOne({
+      where: {
+        head_cuit: req.body.head_cuit,
+      },
+    })
+    .then(async (register_headhouse) => {
+      if (!register_headhouse) {
         const Newhead_house = head_house.build({
-          head_name: req.body.name,
-          head_cuit: req.body.cuil,
-          head_business_name: req.body.razonsocial,
-          head_country: req.body.pais,
-          head_email: req.body.email,
-          head_tel: req.body.telefono,
-          head_fax:req.body.fax,
-          bank_id: req.body.id
+          head_name: req.body.head_name,
+          head_cuit: req.body.head_cuit,
+          head_business_name: req.body.head_business_name,
+          head_country: req.body.head_country,
+          head_email: req.body.head_email,
+          head_tel: req.body.head_tel,
+          head_fax: req.body.head_fax,
         });
-        const Newbank = bank.build({
-            bank_name: req.body.namebank,
-            bank_acount:req.body.acount,
-            bank_alias: req.body.alias  
-        })
-        Newuser.save();
-        Newbank.save(),
-        res.send("head house register");
+        const result = await Newhead_house.save();
+        let head_id = result.dataValues.head_id;
+        const Newbank_head_house = banks_head_house.build({
+          bank_head_house_name: req.body.bank_head_house_name,
+          bank_head_house_account: req.body.bank_head_house_account,
+          bank_head_house_alias: req.body.bank_head_house_alias,
+          bank_head_house_cbu: req.body.bank_head_house_cbu,
+          head_id: head_id,
+        });
+        await Newbank_head_house.save();
+        res.send({
+          message: "Registro head_house and banks_head_house correctamente",
+        });
+
+        /*await postBanks_headhouse(req, res, head_id);
+          res.send({
+            message: "head_house guardado correctamente",
+          });*/
       }
-      // If email exists in BD, please reply error message
+      // If cuil exists in BD, please reply error message
       else {
-        res.json({ error: "la compañia matriz ya fue registrada" });
+        res.json({ error: "el cuil ya existe" });
       }
     })
-    .catch((err) => {
-      res.send("error:" + err);
+    .catch((error) => {
+      res.send({
+        message: "Error al intentar añadir head_house",
+        error: error,
+      });
     });
-  }
+};
+
+//GET ALL THE USERS
+head_houseCrtl.getUsers = async (req, res) => {
+  const users = await user.findAll(); //devuelve todos los usuarios
+  res.json(users);
+};
+
+
 //export module
 module.exports = head_houseCrtl;
