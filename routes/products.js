@@ -3,7 +3,7 @@ const session = require("express-session");
 const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const {getProducts, getProduct, saveProduct, updateProduct, getProductsWFilters, deleteLogical} =require('../controllers/productcontrollers')
+const {getProducts, getProduct, saveProduct, updateProduct, getProductsWFilters, deleteLogical, getProviders} =require('../controllers/productcontrollers')
 
 
 
@@ -30,6 +30,10 @@ router.route('/deleteProduct')
 //POST FOR SAVE ONE PRODUCT
 router.route('/saveproduct')  
 .post(saveProduct)
+
+//GET ALL THE PROVIDERS FOR ONE PRODUCT
+router.route('/providers')  
+.post(getProviders)
 
 
 
