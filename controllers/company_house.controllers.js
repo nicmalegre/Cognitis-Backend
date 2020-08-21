@@ -155,3 +155,25 @@ exports.putCompany = async (req, res) => {
     });
   }
 };
+
+//DELETE (LOGICAL) ONE COMPANY ASSOCIATE WITH ONE HEAD_OFFICE
+//delete a branch office house by id
+exports.deleteCompany = async (req, res) => {
+  let company = await company_house.findOne({
+      where: {
+          company_id: req.body.company_id,
+      }
+  });
+
+  if(company){
+      company.update({
+        company_status: 0
+      });
+
+     res.send({
+         message: "Company dada de baja correctamente"
+     }) 
+  }
+
+  res.send("Error al intentar dar de baja")
+}

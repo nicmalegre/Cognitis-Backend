@@ -42,24 +42,24 @@ const products = db.define(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    product_bultos: {
-      type: DataTypes.SMALLINT,
+    product_package: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
-    product_bultos_clientes: {
+    product_package_customers: {
       type: DataTypes.INTEGER,
       allowNull: true,
       //longitud
     },
-    product_minimium_margin: {
-      type: DataTypes.SMALLINT,
+    product_min_margin: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
-    product_maximium_margin: {
-      type: DataTypes.SMALLINT,
+    product_max_margin: {
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
-    product_price: {
+    product_list_price: {
       type: DataTypes.DECIMAL(15, 2),
       allowNull: true,
     },
@@ -84,24 +84,41 @@ const products = db.define(
       allowNull: true,
     },
     product_material: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_origin: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_shipping: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_warranty: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_barcode: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    product_country_tax: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    product_cost_with_tax: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    product_maker: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    product_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
     },
     category: {
       type: DataTypes.INTEGER,
@@ -111,16 +128,16 @@ const products = db.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    product_status: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: 1,
-    }
+    product_branch_office_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
     timestamps: false,
     freezeTableName: true,
   }
 );
+
 
 module.exports = products;

@@ -1,5 +1,6 @@
 const userCrtl = {};
 const product = require('../models/products');
+const products_providers = require('../models/products_providers');
 const { Op } = require("sequelize");
 
 //GET all products
@@ -166,6 +167,17 @@ userCrtl.deleteLogical= async(req,res) => {
     )
     .then(res.send("State updated"))
     .catch(console.log("Can't update the state"))
+}
+
+//GET ALL THE PROVIDERS FOR ONE PRODUCT
+userCrtl.getProviders= async(req,res) => {
+    const providers = await products_providers.findAll({
+        where: {
+            product_id: req.body.product_id,
+        },
+    }); 
+
+    res.json(providers)
 }
 
 

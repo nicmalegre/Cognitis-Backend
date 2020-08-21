@@ -6,9 +6,9 @@ const {postHead_house} =require('../controllers/head_house.controllers')
 router.route('/registerheadhouse')
   .post(postHead_house)
 
-  //When you go to 'http://localhost:3000/api/users' you will get all the users stored in the database
+//Get all the users stored in the database
 router.route('/')  
-  /*.get(getUsers)*/
+/*.get(getUsers)*/
 
 
 
