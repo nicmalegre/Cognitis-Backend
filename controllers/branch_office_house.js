@@ -3,7 +3,11 @@ const db = require("../db");
 
 // get all branch office house
 exports.getAllBranchOffice = async (req, res) => {
-  const branchOffices = await branch_office_house.findAll();
+  const branchOffices = await branch_office_house.findAll({
+      where: {
+          branch_office_status: 1
+      }
+  });
 
   res.send(branchOffices);
 };
@@ -45,6 +49,7 @@ exports.getBranchOfficeByCompany = async (req, res) => {
   res.send(branchOffices);
 };
 
+//update a branch office house 
 exports.updateBranchOffice = async (req, res) => {
   let branchOffice = await branch_office_house.findOne({
     where: {
@@ -74,3 +79,24 @@ exports.updateBranchOffice = async (req, res) => {
     });
   }
 };
+
+//delete a branch office house by id
+exports.deleteBranchOffice = async (req, res) => {
+    let branchOffice = await branch_office_house.findOne({
+        where: {
+            branch_office_id: req.body.id,
+        }
+    });
+
+    if(branchOffice){
+        branchOffice.update({
+            branch_office_status: 0
+        });
+
+       res.send({
+           message: "Sucursal dada de baja correctamente"
+       }) 
+    }
+
+    res.send("Eror al intentar dar de baja")
+}

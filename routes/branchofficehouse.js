@@ -10,4 +10,6 @@ router.route('/branchofficebycompany').post(branchOfficeController.getBranchOffi
 
 router.route('/update').put(branchOfficeController.updateBranchOffice)
 
+router.route('/delete').post(branchOfficeController.deleteBranchOffice)
+
 module.exports = router;
