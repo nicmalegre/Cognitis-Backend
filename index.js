@@ -45,8 +45,10 @@ app.use("/api/company", require("./routes/company"))
 
 //branch office house routes
 app.use("/api/branchofficehouse", require("./routes/branchofficehouse"))
-//users routes
+
+//head_house routes
 app.use("/api/head_house", require("./routes/head_house"))
+
 //products routes
 app.use("/api/products", require("./routes/products"))
 
