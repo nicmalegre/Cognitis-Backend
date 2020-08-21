@@ -12,4 +12,7 @@ router.route('/newcompany').post(companyController.createCompany)
 
 router.route('/headhouse/:head_house_id').get(companyController.getCompanies_headhouse)
 
+//ROUTE FOR DELETE ONE COMPANY (Logical delete)
+router.route('/deletecompany/:company_id/:head_house_id').put(companyController.deleteCompany)
+
 module.exports = router;
