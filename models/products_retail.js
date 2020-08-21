@@ -29,6 +29,14 @@ const products_retail = db.define('products_retail', {
         type: DataTypes.STRING,
         allowNull: true
     },
+    product_technical_data: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    product_model: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     }, 
     {
         timestamps: false,

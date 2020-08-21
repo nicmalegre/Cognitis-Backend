@@ -42,24 +42,24 @@ const products = db.define(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
-    product_bultos: {
+    product_package: {
       type: DataTypes.SMALLINT,
       allowNull: true,
     },
-    product_bultos_clientes: {
+    product_package_customers: {
       type: DataTypes.INTEGER,
       allowNull: true,
       //longitud
     },
-    product_minimium_margin: {
+    product_min_margin: {
       type: DataTypes.SMALLINT,
       allowNull: true,
     },
-    product_maximium_margin: {
+    product_max_margin: {
       type: DataTypes.SMALLINT,
       allowNull: true,
     },
-    product_price: {
+    product_list_price: {
       type: DataTypes.DECIMAL(15, 2),
       allowNull: true,
     },
@@ -103,6 +103,23 @@ const products = db.define(
         type: DataTypes.STRING,
         allowNull: true
     },
+    product_country_tax: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    product_cost_with_tax: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    product_maker: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    product_status: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
+    },
     category: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -110,17 +127,12 @@ const products = db.define(
     products_industry_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
-    product_status: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: 1,
     }
-  },
-  {
+    },
+    {
     timestamps: false,
     freezeTableName: true,
-  }
+    }
 );
 
 module.exports = products;
