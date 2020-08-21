@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
-const banks_branch_office = require('./banks_branch_office');
+const banks_branch_office = require("./banks_branch_office");
 const db = require("../db");
 
 const branch_office_house = db.define(
@@ -44,14 +44,14 @@ const branch_office_house = db.define(
       allowNull: false,
     },
     branch_office_status: {
-        type: DataTypes.BOOLEAN,
-        allowNull: true,
-        defaultValue: 1
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: 1,
     },
     company_house_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
+    },
   },
   {
     timestamps: false,
@@ -59,7 +59,14 @@ const branch_office_house = db.define(
   }
 );
 
-branch_office_house.hasMany(banks_branch_office ,{as:"bankcompany",foreignKey:'branch_office_id', sourceKey:'branch_office_id'});
-banks_branch_office.belongsTo(branch_office_house,{foreignKey:'branch_office_id', sourceKey:'branch_office_id'})
+branch_office_house.hasMany(banks_branch_office, {
+  as: "bank_branch_office",
+  foreignKey: "branch_office_id",
+  sourceKey: "branch_office_id",
+});
+
+banks_branch_office.belongsTo(branch_office_house, {
+  foreignKey: "branch_office_id",
+});
 
 module.exports = branch_office_house;
