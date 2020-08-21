@@ -60,11 +60,11 @@ const company_house = db.define(
     freezeTableName: true,
   }
 );
-/*
+
 company_house.hasMany(branch_office_house ,{foreignKey:'company_house_id', sourceKey:'company_id'});
 branch_office_house.belongsTo(company_house, {foreignKey:'company_house_id', sourceKey:'company_id'});
 
 company_house.hasMany(banks_company_house ,{as:"bankcompany",foreignKey:'company_id', sourceKey:'company_id'});
-banks_company_house.belongsTo(company_house,{foreignKey:'company_id', sourceKey:'company_id'})*/
+banks_company_house.belongsTo(company_house,{foreignKey:'company_id', sourceKey:'company_id'})
 
 module.exports = company_house;

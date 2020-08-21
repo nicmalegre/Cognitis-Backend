@@ -3,9 +3,11 @@ const head_house = require("../models/head_house");
 const banks_head_house = require("../models/banks_head_house");
 //const {postBanks_headhouse} = require("./banks_headhouse.controllers");
 
+//CREATE A NEW HEAD_HOUSE
 head_houseCrtl.postHead_house = (req, res) => {
   //Check if the email exists in the DB
-  head_house.findOne({
+  head_house
+    .findOne({
       where: {
         head_cuit: req.body.head_cuit,
       },
@@ -53,7 +55,6 @@ head_houseCrtl.getUsers = async (req, res) => {
   const users = await user.findAll(); //devuelve todos los usuarios
   res.json(users);
 };
-
 
 //export module
 module.exports = head_houseCrtl;

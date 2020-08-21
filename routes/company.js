@@ -8,14 +8,16 @@ const companyController = require('../controllers/company_house.controllers')
 
 router.route('/').get(companyController.getAllCompanies)
 
-router.route('/newcompany').post(companyController.createCompany)
+//outer.route('/newcompany').post(companyController.createCompany)
 
 router.route('/headhouse/:head_house_id').get(companyController.getCompanies_headhouse)
 
 router.route('/headhouse/:head_house_id/company/newcompany').post(companyController.createCompany)
+
 //ROUTE FOR DELETE ONE COMPANY (Logical delete)
 router.route('/deletecompany/').post(companyController.deleteCompany)
 
-router.route('/headhouse/:head_house_id/company/:company_id').put(companyController.putCompany)
+//ROUTE FOR UPDATE ONE DATA COMPANY
+router.route('/:company_id').put(companyController.updateCompanyhouse)
 
 module.exports = router;
