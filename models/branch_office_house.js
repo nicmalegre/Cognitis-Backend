@@ -50,7 +50,7 @@ const branch_office_house = db.define(
     company_house_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    },
+    }
   },
   {
     timestamps: false,
