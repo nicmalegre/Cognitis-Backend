@@ -43,7 +43,7 @@ const products = db.define(
       allowNull: true,
     },
     product_package: {
-      type: DataTypes.SMALLINT,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     product_package_customers: {
@@ -52,11 +52,11 @@ const products = db.define(
       //longitud
     },
     product_min_margin: {
-      type: DataTypes.SMALLINT,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     product_max_margin: {
-      type: DataTypes.SMALLINT,
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
     product_list_price: {
@@ -84,36 +84,36 @@ const products = db.define(
       allowNull: true,
     },
     product_material: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_origin: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_shipping: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_warranty: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_barcode: {
-        type: DataTypes.STRING,
-        allowNull: true
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     product_country_tax: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
     product_cost_with_tax: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
     product_maker: {
       type: DataTypes.STRING,
-      allowNull: true
+      allowNull: true,
     },
     product_status: {
       type: DataTypes.BOOLEAN,
@@ -127,12 +127,17 @@ const products = db.define(
     products_industry_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-    }
     },
-    {
+    product_branch_office_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  },
+  {
     timestamps: false,
     freezeTableName: true,
-    }
+  }
 );
+
 
 module.exports = products;
