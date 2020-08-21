@@ -8,35 +8,66 @@ exports.getAllCompanies = async (req, res) => {
 };
 
 exports.createCompany = (req, res) => {
-  const company = company_house.build({
-    company_name: req.body.name,
-    company_cuit: req.body.cuit,
-    company_business_name: req.body.business_name,
-    company_country: req.body.country,
-    company_email: req.body.email,
-    company_tel: req.body.tel,
-    company_fax: req.body.fax,
-    company_house_industry_id: req.body.industry_id,
-    head_house_id: req.body.head_house_id,
-    bank_company_house_id: req.body.bank_id,
-  });
-
-  try {
-    company.save();
-
+  company_house.findOne({
+    where: {
+      company_cuit: req.body.company_cuit,
+    },
+  })
+  .then(async (register_company) => {
+    if (!register_company) {
+      const { head_house_id } = req.params;
+        const {
+          company_name,
+          company_cuit,
+          company_business_name,
+          company_country,
+          company_email,
+          company_tel,
+          company_fax,
+          company_house_industry_id,
+          bank_company_name,
+          bank_company_account,
+          bank_company_alias,
+          bank_company_cbu,
+        } = req.body;
+     const Newcompany = company_house.build({
+          company_name,
+          company_cuit,
+          company_business_name,
+          company_country,
+          company_email,
+          company_tel,
+          company_fax,
+          company_house_industry_id,
+          head_house_id,
+      });
+      const result = await Newcompany.save();
+      let company_id = result.dataValues.company_id;
+      const Newbank_head_house = banks_company_house.build({
+        bank_company_name,
+        bank_company_account,
+        bank_company_alias,
+        bank_company_cbu,
+        company_id,
+      });
+      await Newbank_head_house.save();
+      res.send({
+        message: "Compañia registrada correctamente",
+      });
+    }
+    // If cuil exists in BD, please reply error message
+    else {
+      res.json({ error: "Compañia ya registrada" });
+    }
+  })
+  .catch((error) => {
     res.send({
-      message: "Registro guardado correctamente",
-    });
-
-    /* console.log('datos recibidos', req.body)
-        res.send(company) */
-  } catch (error) {
-    res.send({
-      message: "Error al intentar crear a company house",
+      message: "Error al intentar crear un compañia",
       error: error,
     });
-  }
+  });
 };
+
 
 //FIND ALL COMPANY ASSOCIETE WITH AN ID THE HEAD_HOUSE
 exports.getCompanies_headhouse = async (req, res) => {
@@ -77,7 +108,7 @@ exports.putCompany = async (req, res) => {
       },
     });
     if (current_company_house) {
-        //console.log(current_company_house);
+      //console.log(current_company_house);
       const {
         company_name,
         company_cuit,
@@ -108,12 +139,12 @@ exports.putCompany = async (req, res) => {
             bank_company_cbu,
           },
         },
-        {  
+        {
           include: "bankcompany",
           where: { company_id },
         }
       );
-      res.json({editCompany_house});
+      res.json({ editCompany_house });
     } else {
       res.json({ error: "la company_house no existe" });
     }

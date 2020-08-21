@@ -5,8 +5,7 @@ const banks_head_house = require("../models/banks_head_house");
 
 head_houseCrtl.postHead_house = (req, res) => {
   //Check if the email exists in the DB
-  head_house
-    .findOne({
+  head_house.findOne({
       where: {
         head_cuit: req.body.head_cuit,
       },
@@ -35,11 +34,6 @@ head_houseCrtl.postHead_house = (req, res) => {
         res.send({
           message: "Registro head_house and banks_head_house correctamente",
         });
-
-        /*await postBanks_headhouse(req, res, head_id);
-          res.send({
-            message: "head_house guardado correctamente",
-          });*/
       }
       // If cuil exists in BD, please reply error message
       else {
