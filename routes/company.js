@@ -12,4 +12,6 @@ router.route('/newcompany').post(companyController.createCompany)
 
 router.route('/headhouse/:head_house_id').get(companyController.getCompanies_headhouse)
 
+router.route('/headhouse/:head_house_id/company/:company_id').put(companyController.putCompany)
+
 module.exports = router;

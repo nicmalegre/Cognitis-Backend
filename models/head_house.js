@@ -1,4 +1,5 @@
 const { Sequelize, DataTypes } = require("sequelize");
+const company_house = require("./company_house");
 const db = require("../db");
 
 const head_house = db.define(
@@ -53,5 +54,7 @@ const head_house = db.define(
     freezeTableName: true,
   }
 );
+head_house.hasMany(company_house ,{foreignKey:'head_house_id', sourceKey:'head_id'});
+company_house.belongsTo(head_house,{foreignKey:'head_house_id', sourceKey:'head_id'})
 
 module.exports = head_house;
