@@ -8,7 +8,7 @@ const companyController = require('../controllers/company_house.controllers')
 
 router.route('/').get(companyController.getAllCompanies)
 
-//outer.route('/newcompany').post(companyController.createCompany)
+// router.route('/newcompany').post(companyController.createCompany)
 
 router.route('/headhouse/:head_house_id').get(companyController.getCompanies_headhouse)
 
