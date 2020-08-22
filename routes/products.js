@@ -13,10 +13,10 @@ router.route('/')
 
 //When you go to 'http://localhost:3000/api/products/filters' you will get all the products with filters stored in the database
 router.route('/filters')  
-.get(getProductsWFilters)
+.post(getProductsWFilters)
 
 //When you go to 'http://localhost:3000/api/products/getproduct' you will get the product with id stored in the database
-router.route('/getproduct')  
+router.route('/getproduct/:id_product')  
 .get(getProduct)
 
 //When you go to 'http://localhost:3000/api/products/updateproduct' you will get the product with id stored in the database
