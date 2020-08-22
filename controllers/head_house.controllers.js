@@ -49,12 +49,12 @@ head_houseCrtl.postHead_house = (req, res) => {
       });
     });
 };
-
+/*
 //GET ALL THE USERS
 head_houseCrtl.getUsers = async (req, res) => {
   const users = await user.findAll(); //devuelve todos los usuarios
-  res.json(users);
+  res.json({users});
 };
-
+*/
 //export module
 module.exports = head_houseCrtl;
