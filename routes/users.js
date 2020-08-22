@@ -54,9 +54,9 @@ router.post("/login", (req, res) => {
     });
 });
 
-
+//ROUTE FOR VALIDATE EMAIL
 router.post("/senduserinvitation", (req, res) => {
-  const user = User.build({});
+  const Newuser = user.build({});
 
   try {
     transporter.sendMail({

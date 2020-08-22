@@ -3,6 +3,7 @@ const head_house = require("../models/head_house");
 const banks_head_house = require("../models/banks_head_house");
 //const {postBanks_headhouse} = require("./banks_headhouse.controllers");
 
+//CREATE A NEW HEAD_HOUSE
 head_houseCrtl.postHead_house = (req, res) => {
   //Check if the email exists in the DB
   head_house
@@ -29,17 +30,12 @@ head_houseCrtl.postHead_house = (req, res) => {
           bank_head_house_account: req.body.bank_head_house_account,
           bank_head_house_alias: req.body.bank_head_house_alias,
           bank_head_house_cbu: req.body.bank_head_house_cbu,
-          head_id: head_id,
+          head_id,
         });
         await Newbank_head_house.save();
         res.send({
           message: "Registro head_house and banks_head_house correctamente",
         });
-
-        /*await postBanks_headhouse(req, res, head_id);
-          res.send({
-            message: "head_house guardado correctamente",
-          });*/
       }
       // If cuil exists in BD, please reply error message
       else {
@@ -53,13 +49,12 @@ head_houseCrtl.postHead_house = (req, res) => {
       });
     });
 };
-
+/*
 //GET ALL THE USERS
 head_houseCrtl.getUsers = async (req, res) => {
   const users = await user.findAll(); //devuelve todos los usuarios
-  res.json(users);
+  res.json({users});
 };
-
-
+*/
 //export module
 module.exports = head_houseCrtl;

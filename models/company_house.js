@@ -9,8 +9,9 @@ const company_house = db.define(
     company_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
+      autoIncrement:true,
       primaryKey: true,
+      unique: true,
     },
     company_name: {
       type: DataTypes.STRING,
@@ -59,6 +60,7 @@ const company_house = db.define(
     freezeTableName: true,
   }
 );
+
 company_house.hasMany(branch_office_house ,{foreignKey:'company_house_id', sourceKey:'company_id'});
 branch_office_house.belongsTo(company_house, {foreignKey:'company_house_id', sourceKey:'company_id'});
 
