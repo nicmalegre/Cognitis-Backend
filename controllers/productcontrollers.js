@@ -1,7 +1,7 @@
 const userCrtl = {};
 const product = require('../models/products');
 const products_providers = require('../models/products_providers');
-const { Op, Sequelize, QueryTypes} = require("sequelize");
+const { Op, QueryTypes, Sequelize } = require("sequelize");
 const { sequelize } = require('../models/products');
 
 //GET all products
@@ -13,16 +13,15 @@ userCrtl.getProducts= async(req,res) => {
 //GET all products with filters
 userCrtl.getProductsWFilters= async(req,res) => {
 
-        
+    // console.log(req.body)   
     // const products = await product.findAll({   
              
         
     //     //Codigo y Proveedor estan comentados porque no se encuentran en la tabla de producto
     //     where: {
-    //         [Op.or]: { 
-    //             product_code: {
-    //              [Op.or]:{[Op.eq]: req.body.id, [Op.ne]: null}
-    //          },
+    //         [Op.or]: { product_id: {
+    //             [Op.and]:{[Op.eq]: req.body.product_id, [Op.ne]: null}
+    //         },
     //         product_name: {
     //             [Op.and]:{[Op.eq]: req.body.product_name, [Op.ne]: null}
     //         },
@@ -33,34 +32,27 @@ userCrtl.getProductsWFilters= async(req,res) => {
     //         //     [Op.or]:{[Op.eq]: req.body.product_provider, [Op.ne]: null}
     //         // },
     //         category: {
-    //             [Op.and]:{[Op.eq]: req.body.product_category, [Op.ne]: null}
+    //             [Op.and]:{[Op.eq]: req.body.product_category, [Op.ne]: null} 
     //         },
     //         product_type: {
     //             [Op.and]:{[Op.eq]: req.body.product_type, [Op.ne]: null}
     //         }}
-
     //     }
-
-  
-
     // });
 
     const products = await sequelize.query(
-        "SELECT * from PRODUCTS where ((:productId = product_id or :productId is null) and (:productName = product_name or :productName is null)) and (product_brand = :producBrand or :productBrand is null) and (product_category = :productCategory or :productCategory is null) and (product_type = :productType or :productType is null))",
+        "SELECT * from PRODUCTS where ((:productId = product_id or :productId is null) and (:productName = product_name or :productName is null) and (:productBrand = product_brand  or :productBrand is null) and (:productCategory = category or :productCategory is null) and (:productType = product_type or :productType is null))",
         {
             replacements: {
                 productId: req.body.product_id,
                 productName: req.body.product_name,
                 productBrand: req.body.product_brand,
-                productCategory: req.body.product_category,
+                productCategory: req.body.category,
                 productType: req.body.product_type
             },
             type: QueryTypes.SELECT
         }
     );
-
-
-
     if (products) {
         res.json(products)
     } else {
@@ -73,9 +65,9 @@ userCrtl.getProductsWFilters= async(req,res) => {
 
 //GET one product with the id of product
 userCrtl.getProduct= async(req,res) => {
-    const products = await product.findOne({
+    let products = await product.findOne({
         where: {
-            product_id: req.body.product_id
+            product_id: req.params.id_product
 
         }
     });

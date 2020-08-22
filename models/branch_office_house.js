@@ -1,5 +1,7 @@
 const { Sequelize, DataTypes } = require("sequelize");
 const banks_branch_office = require("./banks_branch_office");
+const products = require('./products');
+
 const db = require("../db");
 
 const branch_office_house = db.define(
@@ -68,5 +70,14 @@ branch_office_house.hasMany(banks_branch_office, {
 banks_branch_office.belongsTo(branch_office_house, {
   foreignKey: "branch_office_id",
 });
+
+
+branch_office_house.hasMany(products, {
+  foreignKey: 'product_branch_office_id'
+});
+
+products.belongsTo(branch_office_house, {
+  foreignKey: 'product_branch_office_id'
+})
 
 module.exports = branch_office_house;

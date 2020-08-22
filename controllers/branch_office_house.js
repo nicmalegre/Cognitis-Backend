@@ -1,5 +1,7 @@
 const branch_office_house = require("../models/branch_office_house");
 const banks_branch_office = require("../models/banks_branch_office");
+const productModel = require("../models/products")
+
 const db = require("../db");
 
 // get all branch office house
@@ -133,3 +135,24 @@ exports.deleteBranchOffice = async (req, res) => {
 
   res.send("Error al intentar dar de baja");
 };
+
+exports.getProducts = async (req, res) => {
+  let productResults = await productModel.findAll({
+    where: {
+      product_branch_office_id: req.params.id
+    }
+  })
+
+  res.send(productResults)
+}
+
+exports.getProduct = async (req, res) => {
+  let productResults = await productModel.findAll({
+    where: {
+      product_branch_office_id: req.params.id_sucursal,
+      product_id: req.params.id_product
+    }
+  })
+
+  res.send(productResults)
+}

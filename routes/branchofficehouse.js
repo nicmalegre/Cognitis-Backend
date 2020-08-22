@@ -12,4 +12,10 @@ router.route('/update').put(branchOfficeController.updateBranchOffice)
 
 router.route('/delete').post(branchOfficeController.deleteBranchOffice)
 
+router.route('/products/:id').get(branchOfficeController.getProducts)
+
+router.route('/products/:id_sucursal/:id_product').get(branchOfficeController.getProduct)
+
+
+
 module.exports = router;
