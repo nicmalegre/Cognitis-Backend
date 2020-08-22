@@ -54,7 +54,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-
+//ROUTE FOR VALIDATE EMAIL
 router.post("/senduserinvitation", (req, res) => {
   const Newuser = user.build({});
 
