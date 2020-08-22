@@ -56,7 +56,7 @@ router.post("/login", (req, res) => {
 
 
 router.post("/senduserinvitation", (req, res) => {
-  const user = User.build({});
+  const Newuser = user.build({});
 
   try {
     transporter.sendMail({
