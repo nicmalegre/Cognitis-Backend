@@ -1,7 +1,8 @@
 const userCrtl = {};
 const product = require('../models/products');
 const products_providers = require('../models/products_providers');
-const { Op } = require("sequelize");
+const { Op, Sequelize, QueryTypes} = require("sequelize");
+const { sequelize } = require('../models/products');
 
 //GET all products
 userCrtl.getProducts= async(req,res) => {
@@ -13,35 +14,53 @@ userCrtl.getProducts= async(req,res) => {
 userCrtl.getProductsWFilters= async(req,res) => {
 
         
-    const products = await product.findAll({   
+    // const products = await product.findAll({   
              
         
-        //Codigo y Proveedor estan comentados porque no se encuentran en la tabla de producto
-        where: {
-            [Op.or]: {// product_code: {
-            //     [Op.or]:{[Op.eq]: req.body.product_code, [Op.ne]: null}
-            // },
-            product_name: {
-                [Op.and]:{[Op.eq]: req.body.product_name, [Op.ne]: null}
-            },
-            product_brand: {
-                [Op.and]:{[Op.eq]: req.body.product_brand, [Op.ne]: null}
-            },
-            // product_provider: {
-            //     [Op.or]:{[Op.eq]: req.body.product_provider, [Op.ne]: null}
-            // },
-            category: {
-                [Op.and]:{[Op.eq]: req.body.product_category, [Op.ne]: null}
-            },
-            product_type: {
-                [Op.and]:{[Op.eq]: req.body.product_type, [Op.ne]: null}
-            }}
+    //     //Codigo y Proveedor estan comentados porque no se encuentran en la tabla de producto
+    //     where: {
+    //         [Op.or]: { 
+    //             product_code: {
+    //              [Op.or]:{[Op.eq]: req.body.id, [Op.ne]: null}
+    //          },
+    //         product_name: {
+    //             [Op.and]:{[Op.eq]: req.body.product_name, [Op.ne]: null}
+    //         },
+    //         product_brand: {
+    //             [Op.and]:{[Op.eq]: req.body.product_brand, [Op.ne]: null}
+    //         },
+    //         // product_provider: {
+    //         //     [Op.or]:{[Op.eq]: req.body.product_provider, [Op.ne]: null}
+    //         // },
+    //         category: {
+    //             [Op.and]:{[Op.eq]: req.body.product_category, [Op.ne]: null}
+    //         },
+    //         product_type: {
+    //             [Op.and]:{[Op.eq]: req.body.product_type, [Op.ne]: null}
+    //         }}
 
-        }
+    //     }
 
   
 
-    });
+    // });
+
+    const products = await sequelize.query(
+        "SELECT * from PRODUCTS where ((:productId = product_id or :productId is null) and (:productName = product_name or :productName is null)) and (product_brand = :producBrand or :productBrand is null) and (product_category = :productCategory or :productCategory is null) and (product_type = :productType or :productType is null))",
+        {
+            replacements: {
+                productId: req.body.product_id,
+                productName: req.body.product_name,
+                productBrand: req.body.product_brand,
+                productCategory: req.body.product_category,
+                productType: req.body.product_type
+            },
+            type: QueryTypes.SELECT
+        }
+    );
+
+
+
     if (products) {
         res.json(products)
     } else {
@@ -171,11 +190,24 @@ userCrtl.deleteLogical= async(req,res) => {
 
 //GET ALL THE PROVIDERS FOR ONE PRODUCT
 userCrtl.getProviders= async(req,res) => {
-    const providers = await products_providers.findAll({
+    /*const providers = await products_providers.hasMany(providers,{foreignKey: 'product_id'})
+    
+    ({
         where: {
             product_id: req.body.product_id,
         },
-    }); 
+    }); */
+
+    //this is a raw query from sequelize
+    const providers = await sequelize.query(
+        "SELECT * from providers p inner join products_providers pp on p.provider_id = pp.provider_id where pp.product_id = :productId",
+        {
+            replacements: {
+                productId: req.body.product_id
+            },
+            type: QueryTypes.SELECT
+        }
+    );
 
     res.json(providers)
 }
