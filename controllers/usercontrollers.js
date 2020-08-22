@@ -35,7 +35,6 @@ userCrtl.saveUser= async(req,res) => {
       if (!usuario) {
         //let hash = await bcrypt.hash(req.body.password, 10);
         const Newuser = user.build({
-          user_id: req.body.user_id,
           user_name: req.body.user_name,
           user_mail: req.body.user_mail,
           user_password: req.body.user_password,

@@ -2,8 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer");
-const sendgridTransport = require("nodemailer-sendgrid-transport");
+
 
 //Initialization
 const db = require("./db");
@@ -19,13 +18,6 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const transporter = nodemailer.createTransport(
-  sendgridTransport({
-    auth: {
-      api_key: "API_KEY",
-    },
-  })
-);
 
 //Routes
 app.get("/", function (req, res) {

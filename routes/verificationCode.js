@@ -1,5 +1,14 @@
 const express = require("express");
-const router = express.Router();
+const router = express.Router();const nodemailer = require("nodemailer");
+const sendgridTransport = require("nodemailer-sendgrid-transport");
+
+const transporter = nodemailer.createTransport(
+  sendgridTransport({
+    auth: {
+      api_key: "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",
+    },
+  })
+);
 
 router.post("/", (req, res) => {
   let code = "";
@@ -17,7 +26,7 @@ router.post("/", (req, res) => {
   //send email
   try {
     transporter.sendMail({
-      to: req.body.mail,
+      to: req.body.user_mail,
       from: "sebasrz.rcia@gmail.com",
       subject: "Verification Code",
       html: `<div> 
