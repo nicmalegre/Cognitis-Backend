@@ -44,10 +44,6 @@ const head_house = db.define(
       allowNull: true,
       defaultValue: 1,
     },
-    bank_head_house_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
   },
   {
     timestamps: false,
