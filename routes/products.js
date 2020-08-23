@@ -20,8 +20,8 @@ router.route('/getproduct/:id_product')
 .get(getProduct)
 
 //When you go to 'http://localhost:3000/api/products/updateproduct' you will get the product with id stored in the database
-router.route('/updateProduct')  
-.get(updateProduct)
+router.route('/updateProduct/:id_product')  
+.put(updateProduct)
 
 //When you go to 'http://localhost:3000/api/products/deleteproduct' you will get the product with id stored in the database
 router.route('/deleteProduct')  

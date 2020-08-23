@@ -18,7 +18,7 @@ exports.createCompany = (req, res) => {
     })
     .then(async (register_company) => {
       if (!register_company) {
-        const { head_house_id } = req.params;
+        //const { head_house_id } = req.body;
         const {
           company_name,
           company_cuit,
@@ -27,6 +27,7 @@ exports.createCompany = (req, res) => {
           company_email,
           company_tel,
           company_fax,
+          head_house_id,
           company_house_industry_id,
           bank_company_name,
           bank_company_account,

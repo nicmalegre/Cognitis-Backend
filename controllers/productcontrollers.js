@@ -130,10 +130,11 @@ userCrtl.saveProduct= async(req,res) => {
 
 //Update one product
 userCrtl.updateProduct= async(req,res) => {
-    
+    const {id_product} = req.params;
     product.findOne({
         where: {
-            product_code: req.body.product_code,
+          //  product_code: req.body.product_code,
+          product_code: id_product,
         },
     })
     

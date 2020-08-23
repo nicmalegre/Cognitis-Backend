@@ -1,6 +1,7 @@
 const head_houseCrtl = {};
 const head_house = require("../models/head_house");
 const banks_head_house = require("../models/banks_head_house");
+const { head } = require("../routes/head_house");
 //const {postBanks_headhouse} = require("./banks_headhouse.controllers");
 
 //CREATE A NEW HEAD_HOUSE
@@ -33,9 +34,7 @@ head_houseCrtl.postHead_house = (req, res) => {
           head_id,
         });
         await Newbank_head_house.save();
-        res.send({
-          message: "Registro head_house and banks_head_house correctamente",
-        });
+        res.json(head_id);
       }
       // If cuil exists in BD, please reply error message
       else {
