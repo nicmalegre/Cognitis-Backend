@@ -204,6 +204,29 @@ userCrtl.getProviders= async(req,res) => {
     res.json(providers)
 }
 
+userCrtl.getProductData = async(req,res) => {
+    /*
+    const select = 'select pd.*,pv.provider_id,pv.provider_name'
+    const from = 'from products pd inner join products_stock ps on ps.product_id = pd.product_id inner join providers pv on ps.provider_id = pv.provider_id'
+    const where = 'where :_idProducto = pd.product_id'
+    */
+    const call = 'call ObtenerDatosProducto(:_idProducto)'
+    const [result,metadata] = await sequelize.query(
+        `${call}`,
+        {
+            replacements: {
+                _idProducto: parseInt(req.params.id_product),
+            },
+            type: QueryTypes.SELECT,
+        }
+    );
+    
+    console.log(metadata);
+    const response = result[0];
+
+    res.json(response);
+}
+
 
 //export module
 module.exports = userCrtl;
