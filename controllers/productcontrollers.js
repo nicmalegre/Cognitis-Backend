@@ -53,7 +53,6 @@ userCrtl.getProductsWFilters= async(req,res) => {
             type: QueryTypes.SELECT
         }
     );
-
     if (products) {
         res.json(products)
     } else {
@@ -99,10 +98,10 @@ userCrtl.saveProduct= async(req,res) => {
             product_in_ecommerce: req.body.product_in_ecommerce,
             product_unit: req.body.product_unit,
             product_vol: req.body.product_vol,
-            product_bultos: req.body.product_bultos,
-            product_bultos_clientes: req.body.product_bultos_clientes,
-            product_minimium_margin: req.body.product_minimium_margin,
-            product_maximium_margin: req.body.product_maximium_margin,  
+            product_package: req.body.product_package,
+            product_package_customers: req.body.product_package_customers,
+            product_min_margin: req.body.product_min_margin,
+            product_max_margin: req.body.product_max_margin,  
             product_price: req.body.product_price,  
             product_bonification: req.body.product_bonification,
             product_price_bonification: req.body.product_price_bonification,    
@@ -112,14 +111,16 @@ userCrtl.saveProduct= async(req,res) => {
             product_size: req.body.product_size,
             product_color: req.body.product_color,
             category: req.body.category,
-            products_industry_id: req.body.products_industry_id,   
+            //Estos dos campos faltan mandar
+            products_industry_id: req.body.products_industry_id,//req.body.products_industry_id,   
+            product_branch_office_id: 41,
         });
         newProduct.save();
         res.send("Product saved on the db.");
       }
       // If the product´s name exists in BD, please reply error message
       else {
-        res.json({ error: "The user already exists on the db." });
+        res.json({ error: "The Product already exists on the db." });
       }
     })
     .catch((err) => {
@@ -184,13 +185,49 @@ userCrtl.deleteLogical= async(req,res) => {
 
 //GET ALL THE PROVIDERS FOR ONE PRODUCT
 userCrtl.getProviders= async(req,res) => {
-    const providers = await products_providers.findAll({
+    /*const providers = await products_providers.hasMany(providers,{foreignKey: 'product_id'})
+    
+    ({
         where: {
             product_id: req.body.product_id,
         },
-    }); 
+    }); */
+
+    //this is a raw query from sequelize
+    const providers = await sequelize.query(
+        "SELECT * from providers p inner join products_providers pp on p.provider_id = pp.provider_id where pp.product_id = :productId",
+        {
+            replacements: {
+                productId: req.body.product_id
+            },
+            type: QueryTypes.SELECT
+        }
+    );
 
     res.json(providers)
+}
+
+userCrtl.getProductData = async(req,res) => {
+    /*
+    const select = 'select pd.*,pv.provider_id,pv.provider_name'
+    const from = 'from products pd inner join products_stock ps on ps.product_id = pd.product_id inner join providers pv on ps.provider_id = pv.provider_id'
+    const where = 'where :_idProducto = pd.product_id'
+    */
+    const call = 'call ObtenerDatosProducto(:_idProducto)'
+    const [result,metadata] = await sequelize.query(
+        `${call}`,
+        {
+            replacements: {
+                _idProducto: parseInt(req.params.id_product),
+            },
+            type: QueryTypes.SELECT,
+        }
+    );
+    
+    console.log(metadata);
+    const response = result[0];
+
+    res.json(response);
 }
 
 

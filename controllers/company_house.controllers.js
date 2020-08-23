@@ -1,12 +1,30 @@
 const company_house = require("../models/company_house");
 const banks_company_house = require("../models/banks_company_house");
+const industry = require("../models/industry")
 const { head } = require("../routes/users");
+const banks_head_house = require("../models/banks_head_house");
 
 //GET ALL COMPANIES
 exports.getAllCompanies = async (req, res) => {
   const companies = await company_house.findAll();
   res.send(companies);
 };
+
+//GET A COMPANY BY ID
+exports.getCompanyById = async (req, res) => {
+  const company = await company_house.findOne({
+    where: {
+      company_id: req.params.company_id
+    },
+    include: ['bankcompany', 'industry']
+  })
+
+  if(company){
+    res.send(company)
+  }else{
+    res.send('no se encontraron comapanias con ese id')
+  }
+}
 
 //CREATE NEW COMPANY FOR A HEAD_HOUSE
 exports.createCompany = (req, res) => {
