@@ -2,7 +2,7 @@ const userCrtl = {};
 const user = require('../models/user');
 
 //GET ALL THE USERS
-userCrtl.getUsers= async(req,res) => {
+userCrtl.getUsers= async (req , res) => {
     const users = await user.findAll(); //devuelve todos los usuarios
     res.json(users)
 }
@@ -35,7 +35,6 @@ userCrtl.saveUser= async(req,res) => {
       if (!usuario) {
         //let hash = await bcrypt.hash(req.body.password, 10);
         const Newuser = user.build({
-          user_id: req.body.user_id,
           user_name: req.body.user_name,
           user_mail: req.body.user_mail,
           user_password: req.body.user_password,

@@ -30,7 +30,7 @@ head_houseCrtl.postHead_house = (req, res) => {
           bank_head_house_account: req.body.bank_head_house_account,
           bank_head_house_alias: req.body.bank_head_house_alias,
           bank_head_house_cbu: req.body.bank_head_house_cbu,
-          head_id: head_id,
+          head_id,
         });
         await Newbank_head_house.save();
         res.send({
@@ -49,12 +49,12 @@ head_houseCrtl.postHead_house = (req, res) => {
       });
     });
 };
-
+/*
 //GET ALL THE USERS
 head_houseCrtl.getUsers = async (req, res) => {
   const users = await user.findAll(); //devuelve todos los usuarios
-  res.json(users);
+  res.json({users});
 };
-
+*/
 //export module
 module.exports = head_houseCrtl;
