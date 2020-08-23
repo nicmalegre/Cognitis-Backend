@@ -18,7 +18,7 @@ userCrtl.getUser= async(req,res) => {
         res.send(newuser)
     }else
     {
-        res.send(false)
+        res.send("El usuario con el email ingresado no existe en la bd.")
     }
 }
 
