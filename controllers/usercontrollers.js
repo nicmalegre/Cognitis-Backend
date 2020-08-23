@@ -82,8 +82,8 @@ userCrtl.emailVerification= async(req,res) => {
 //Method for update the passwordExpired field of one user
 userCrtl.updatePasswExpired =  async(req, res) => {
     user.update(
-        {user_password_expired: req.body.passwordExpired},
-        {returning: true, where: {user_mail: req.params.mail} }
+        {user_password_expired: req.body.user_password_expired},
+        {returning: true, where: {user_mail: req.params.user_mail} }
     )
     .then(res.send("User updated"))
     .catch(console.log("Can't update the user"))
