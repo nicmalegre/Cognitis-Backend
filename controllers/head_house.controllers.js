@@ -5,16 +5,17 @@ const { head } = require("../routes/head_house");
 //const {postBanks_headhouse} = require("./banks_headhouse.controllers");
 
 //CREATE A NEW HEAD_HOUSE
-head_houseCrtl.postHead_house = (req, res) => {
+head_houseCrtl.postHead_house = async(req, res) => {
   //Check if the email exists in the DB
-  head_house
+  /*head_house
     .findOne({
       where: {
         head_cuit: req.body.head_cuit,
       },
     })
     .then(async (register_headhouse) => {
-      if (!register_headhouse) {
+      if (!register_headhouse) {*/
+    try{
         const Newhead_house = head_house.build({
           head_name: req.body.head_name,
           head_cuit: req.body.head_cuit,
@@ -35,18 +36,18 @@ head_houseCrtl.postHead_house = (req, res) => {
         });
         await Newbank_head_house.save();
         res.json(head_id);
-      }
+      /*}
       // If cuil exists in BD, please reply error message
       else {
         res.json({ error: "el cuil ya existe" });
-      }
-    })
-    .catch((error) => {
+      }*/
+    }
+    catch(error){
       res.send({
         message: "Error al intentar añadir head_house",
         error: error,
       });
-    });
+    };
 };
 /*
 //GET ALL THE USERS

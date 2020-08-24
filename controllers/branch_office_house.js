@@ -17,6 +17,8 @@ exports.getAllBranchOffice = async (req, res) => {
 
 // create a new office house
 exports.createBranchOfficeHouse = async (req, res) => {
+  
+  try{
   const new_branch_office = branch_office_house.create(
     {
       branch_office_name: req.body.name,
@@ -44,7 +46,8 @@ exports.createBranchOfficeHouse = async (req, res) => {
     res.send({
       message: "datos guardados correctamente",
     });
-  } else {
+  }}
+   catch {
     res.send({
       message: "No se pudo guardar los datos",
     });
