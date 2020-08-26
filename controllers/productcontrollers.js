@@ -115,7 +115,7 @@ userCrtl.saveProduct= async(req,res) => {
             products_industry_id: req.body.products_industry_id,//req.body.products_industry_id,   
             product_branch_office_id: 41,
         });
-        newProduct.save();
+        newProduct.save();z
         res.send("Product saved on the db.");
       }
       // If the product´s name exists in BD, please reply error message
