@@ -29,7 +29,7 @@ const getPagingData = (data, page, limit) => {//Necesitamos devolver total items
 
 //GET ALL PRODUCTS WITH PAGINATION
 userCrtl.getProducts= async(req,res) => {
-    const page = 2;
+    const page = parseInt(req.params.page)
     const size = 10; //This is the same of limit. How many items we want to return for query.
     const { limit, offset } = getPagination(page, size);
 
