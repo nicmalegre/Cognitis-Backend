@@ -22,7 +22,7 @@ head_houseCrtl.postHead_house = async(req, res) => {
           head_business_name: req.body.head_business_name,
           head_country: req.body.head_country,
           head_email: req.body.head_email,
-          head_tel: req.body.head_tel,
+          head_tel: `${country_code}-${area_code}-${head_tel}`,
           head_fax: req.body.head_fax,
         });
         const result = await Newhead_house.save();
