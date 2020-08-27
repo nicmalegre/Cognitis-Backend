@@ -4,7 +4,8 @@ const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const {getProducts, getProduct, saveProduct, updateProduct, getProductsWFilters, deleteLogical, getProviders,
-    getProductData} =require('../controllers/productcontrollers')
+    getProductData,
+    getAllProviders} =require('../controllers/productcontrollers')
 
 
 
@@ -39,6 +40,10 @@ router.route('/providers')
 //GET ALL DATA FROM PRODUCT
 router.route('/productdata/:id_product').
 get(getProductData);
+
+//GET ALL PROVIDERS
+router.route('/allProviders').
+get(getAllProviders);
 
 
 

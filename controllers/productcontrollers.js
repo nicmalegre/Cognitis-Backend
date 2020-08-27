@@ -230,6 +230,19 @@ userCrtl.getProductData = async(req,res) => {
     res.json(response);
 }
 
+userCrtl.getAllProviders = async(req,res)=>{
+    const select = 'Select p.provider_id, p.provider_name';
+    const from = 'from providers p'
+
+    const result = await sequelize.query(
+        `${select} ${from}`,
+        {
+            type: QueryTypes.SELECT,
+        }
+    );
+
+    res.json(result);
+}
 
 //export module
 module.exports = userCrtl;
