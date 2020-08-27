@@ -106,6 +106,7 @@ exports.getCompanies_headhouse = async (req, res) => {
       where: {
         //en el where es lo mismo que head_house_id : head_house_id
         head_house_id,
+        company_status:1
       },
     });
     res.json({ companies_house });
