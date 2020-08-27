@@ -4,12 +4,13 @@ const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const {getProducts, getProduct, saveProduct, updateProduct, getProductsWFilters, deleteLogical, getProviders,
-    getProductData} =require('../controllers/productcontrollers')
+    getProductData,
+    getAllProviders} =require('../controllers/productcontrollers')
 
 
 
-//When you go to 'http://localhost:3000/api/products/' you will get all the products stored in the database
-router.route('/')  
+//GET ALL THE PRODUCTS. The method need a page number.
+router.route('/:page')  
 .get(getProducts)
 
 //When you go to 'http://localhost:3000/api/products/filters' you will get all the products with filters stored in the database
@@ -39,6 +40,10 @@ router.route('/providers')
 //GET ALL DATA FROM PRODUCT
 router.route('/productdata/:id_product').
 get(getProductData);
+
+//GET ALL PROVIDERS
+router.route('/allProviders').
+get(getAllProviders);
 
 
 

@@ -44,6 +44,9 @@ app.use("/api/head_house", require("./routes/head_house"))
 //products routes
 app.use("/api/products", require("./routes/products"))
 
+//industry routes
+app.use("/api/industry", require('./routes/industry'))
+
 //categories routes
 app.use("/api/categories", require("./routes/category"))
 
