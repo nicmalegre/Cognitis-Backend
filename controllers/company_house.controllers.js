@@ -14,7 +14,8 @@ exports.getAllCompanies = async (req, res) => {
 exports.getCompanyById = async (req, res) => {
   const company = await company_house.findOne({
     where: {
-      company_id: req.params.company_id
+      company_id: req.params.company_id,
+      company_status:1
     },
     include: ['bankcompany', 'industry']
   })

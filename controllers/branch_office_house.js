@@ -15,6 +15,29 @@ exports.getAllBranchOffice = async (req, res) => {
   res.send(branchOffices);
 };
 
+
+//GET A BRANCH_OFFICE BY ID
+exports.getBranchOfficeById = async (req, res) => {
+  try{
+  const branchoffice = await branch_office_house.findOne({
+    where: {
+      branch_office_id: req.params.branchoffice_id,
+      branch_office_status:1
+    },
+    include: ['bankbranch']
+  })
+
+  if(branchoffice){
+    res.send(branchoffice)
+  }else{
+    res.send('no se encontro una sucursal con ese id')
+  }}
+  catch (e){
+    res.send("Algo salio mal:"+ e)
+  }
+}
+
+
 // create a new office house
 exports.createBranchOfficeHouse = async (req, res) => {
   

@@ -6,6 +6,8 @@ router.route('/').get(branchOfficeController.getAllBranchOffice)
 
 router.route('/newbranchoffice').post(branchOfficeController.createBranchOfficeHouse)
 
+router.route('/:branchoffice_id').get(branchOfficeController.getBranchOfficeById)
+
 router.route('/branchofficebycompany').post(branchOfficeController.getBranchOfficeByCompany)
 
 router.route('/update').put(branchOfficeController.updateBranchOffice)
