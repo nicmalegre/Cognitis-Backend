@@ -183,42 +183,55 @@ exports.putCompany = async (req, res) => {
 //ROUTE TO UPDATE THE DATA OF THE SPECIFIC COMPANY
 exports.updateCompanyhouse = async (req, res) => {
   const { company_id } = req.params;
+
+  //search compnay on db by id
   let companyHouse = await company_house.findOne({
     where: {
       company_id,
     },
   });
 
+  //search comapny bank on db by id
   let bankCompanyHouse = await banks_company_house.findOne({
     where: {
       company_id,
     },
   });
 
+  //exist bank and company searched?
   if (companyHouse && bankCompanyHouse) {
+
+    //get data recieved 
     const {
-      name,
-      cuit,
-      business_name,
-      country,
-      email,
-      tel,
-      fax,
+      area_code,
+      country_code,
+      company_name,
+      company_cuit,
+      company_business_name,
+      company_country,
+      company_email,
+      company_tel,
+      company_fax,
+      company_house_industry_id,
       bank_company_name,
       bank_company_account,
       bank_company_alias,
       bank_company_cbu,
     } = req.body;
+
+    //update company data
     const updateCompanyHouse = await companyHouse.update({
-      company_name: name,
-      company_cuit: cuit,
-      company_business_name: business_name,
-      company_country: country,
-      company_email: email,
-      company_tel: tel,
-      company_fax: fax,
+      company_name,
+      company_cuit,
+      company_business_name,
+      company_country,
+      company_email,
+      company_tel: `${country_code}-${area_code}-${company_tel}`,
+      company_fax,
+      company_house_industry_id: parseInt(company_house_industry_id)
     });
 
+    //update company bank data
     const updateBankCompanyHouse = await bankCompanyHouse.update({
       bank_company_name,
       bank_company_account,
@@ -237,7 +250,7 @@ exports.updateCompanyhouse = async (req, res) => {
     }
   } else {
     res.send({
-      message: "ocurrio un error al editar",
+      message: "ocurrio un error al editar, no se encontró referencia a la compania o al banco",
     });
   }
 };
