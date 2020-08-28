@@ -51,7 +51,6 @@ app.use("/api/industry", require('./routes/industry'))
 //categories routes
 app.use("/api/categories", require("./routes/category"))
 
-
 //starting the app
 app.listen(app.get('port'), () => {
   console.log('Running on port',app.get('port'));
