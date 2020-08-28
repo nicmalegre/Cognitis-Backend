@@ -11,9 +11,9 @@ const {
 
 
 
-//GET ALL THE PRODUCTS. The method need a page number.
-router.route('/:page')  
-.get(getProducts)
+// //GET ALL THE PRODUCTS. The method need a page number.
+// router.route('/:page')  
+// .get(getProducts)
 
 //When you go to 'http://localhost:3000/api/products/filters' you will get all the products with filters stored in the database
 router.route('/filters')  
@@ -39,13 +39,15 @@ router.route('/saveproduct')
 router.route('/getProvider')  
 .post(getProviders)
 
+//GET ALL PROVIDERS
+router.route('/allproviders').
+get(getAllProviders);
+
 //GET ALL DATA FROM PRODUCT
 router.route('/productdata/:id_product').
 get(getProductData);
 
-//GET ALL PROVIDERS
-router.route('/allproviders').
-get(getAllProviders);
+
 
 
 
