@@ -38,6 +38,7 @@ exports.getBranchOfficeById = async (req, res) => {
 
 // create a new branch office house
 exports.createBranchOfficeHouse = async (req, res) => {
+  
   // exits branch office house with cuit equal to req.body.cuit?
   const branch_office = await branch_office_house.findOne({
     where: {
