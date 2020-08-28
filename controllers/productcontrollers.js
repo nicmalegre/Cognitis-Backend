@@ -224,44 +224,93 @@ userCrtl.saveProduct= async(req,res) => {
 //Update one product
 userCrtl.updateProduct= async(req,res) => {
     const {id_product} = req.params;
-    product.findOne({
-        where: {
-          //  product_code: req.body.product_code,
-          product_code: id_product,
+    const update = 'update products'
+    const set = 'set product_name = :prodName, product_description = :prodDescription,product_brand = :prodBrand, product_type = :prodType, product_is_dollar = :prodIsDollar, product_in_ecommerce = :productEcommerce, product_unit = :productUnit, product_vol = :prodVol, product_package = :prodPackage, product_package_customers = :prodPackageCustomers, product_min_margin = :prodMinMargin, product_max_margin = :prodMaxMargin, product_list_price = :prodListPrice, product_bonification = :prodBonification,product_price_bonification = :prodPriceBonification, product_freight_cost = :prodFreightCost, product_accountant_type = :prodAccountantType, product_accountant_account = :prodAccountantAccount, product_material = :prodMaterial, product_origin = :prodOrigin, product_shipping = :prodShipping, product_warranty = :prodWarranty, product_barcode = :prodBarcode, product_status = :prodStatus, product_maker = :prodMaker, product_country_tax = :prodCountryTax, product_cost_with_tax = :prodCostWTax, category = :cat, product_cost_neto_repo = :prodCostNetoRepo'
+    const where = 'where product_id = :prodId';
+    const resultUpdate1 = await sequelize.query(
+        `${update} ${set} ${where}`,
+        {
+        replacements:{
+            prodName: req.body.product_name,
+            prodDescription: req.body.product_description,
+            prodBrand: req.body.product_brand,
+            prodType: req.body.product_type,
+            prodIsDollar: req.body.product_is_dollar,
+            productEcommerce: req.body.product_in_ecommerce,
+            productUnit: req.body.product_unit,
+            prodVol: req.body.product_vol,
+            prodPackage: req.body.product_package,
+            prodPackageCustomers: req.body.product_package_customers,
+            prodMinMargin: req.body.product_min_margin,
+            prodMaxMargin: req.body.product_max_margin,
+            prodListPrice: req.body.product_list_price,
+            prodBonification: req.body.product_bonification,
+            prodPriceBonification: req.body.product_price_bonification,
+            prodFreightCost: req.body.product_freight_cost,
+            prodAccountantType: req.body.product_accountant_type,
+            prodAccountantAccount: req.body.product_accountant_account,
+            prodMaterial: req.body.product_material,
+            prodOrigin: req.body.product_origin,
+            prodShipping: req.body.product_shipping,
+            prodWarranty: req.body.product_warranty,
+            prodBarcode: req.body.product_barcode,
+            prodStatus: req.body.product_status,
+            prodMaker: req.body.product_maker,
+            prodCountryTax: req.body.product_country_tax,
+            prodCostWTax: req.body.product_cost_with_tax,
+            cat: req.body.category,
+            prodCostNetoRepo: req.body.product_cost_neto_repo,
+            prodId: id_product,
         },
-    })
-    
-    .then(async(producto) => {
-            product.update(
-                    {product_name: req.body.product_name},
-                    {product_description: req.body.product_description},
-                    {product_brand: req.body.product_brand},
-                    {product_type: req.body.product_type},
-                    {product_is_dollar: req.body.product_is_dollar},
-                    {product_in_ecommerce: req.body.product_in_ecommerce},
-                    {product_unit: req.body.product_unit},
-                    {product_vol: req.body.product_vol},
-                    {product_bultos: req.body.product_bultos},
-                    {product_bultos_clientes: req.body.product_bultos_clientes},
-                    {product_minimium_margin: req.body.product_minimium_margin},
-                    {product_maximium_margin: req.body.product_maximium_margin},  
-                    {product_price: req.body.product_price},  
-                    {product_bonification: req.body.product_bonification},
-                    {product_price_bonification: req.body.product_price_bonification},    
-                    {product_freight_cost: req.body.product_freight_cost},    
-                    {product_accountant_type: req.body.product_accountant_type},    
-                    {product_accountant_account: req.body.product_accountant_account},
-                    {product_size: req.body.product_size},
-                    {product_color: req.body.product_color},
-                    {category: req.body.category},
-                    {products_industry_id: req.body.products_industry_id}
-            )
-            .then(res.send("Product updated"))
-            .catch(console.log("Can't update the product"))
-    })
-    .catch((err) => {
-    res.send("error:" + err);
-    });
+        type: QueryTypes.UPDATE,
+        }
+    );
+
+    try{
+    if(req.body.nombreIndustria === 'retail'){
+    const update2 = 'update products_retail';
+    const set2 = 'set product_line = :prodLine, product_seed = :prodSeed, product_service = :prodService, product_serie = :prodSerie, product_NTecnico = :prodNTecnico, product_status = :prodStatus, product_technical_data = :prodTechnicalData, product_model = :prodModel';
+    const where2 = 'where product_id = :prodId';
+
+    const updateParticular = await sequelize.query(
+        `${update2} ${set2} ${where2}`,
+        {
+        replacements:{
+            prodLine: req.body.product_line,
+            prodSeed: req.body.product_seed,
+            prodService: req.body.product_service,
+            prodSerie: req.body.product_serie,
+            prodNTecnico: req.body.product_NTecnico,
+            prodStatus: req.body.product_status,
+            prodTechnicalData: req.body.product_technical_data,
+            prodModel: req.body.product_model,
+            prodId: id_product,
+        },
+        type: QueryTypes.UPDATE,
+    }
+    )
+    }else if(req.body.nombreIndustria === 'indumentary'){
+    const update2 = 'update products_indumentary'
+    const set2 = 'set product_curve = :prodCurve, product_color = :prodColor, product_season = :prodSeason, product_status = :prodStatus'
+    const where2 = 'where product_id = :prodId'
+    const updateParticular = await sequelize.query(
+        `${update2} ${set2} ${where2}`,
+        {
+        replacements:{
+            prodCurve: req.body.product_curve,
+            prodColor: req.body.product_color,
+            prodSeason: req.body.product_season,
+            prodStatus: req.body.product_status,
+            prodId: id_product,
+        },
+        type: QueryTypes.UPDATE,
+    }
+    )
+    }
+    }catch(error){
+        console.log(error)
+    }
+    res.json(resultUpdate1)
 }
 
 
@@ -277,14 +326,6 @@ userCrtl.deleteLogical= async(req,res) => {
 
 //GET ALL THE PROVIDERS FOR ONE PRODUCT
 userCrtl.getProviders= async(req,res) => {
-    /*const providers = await products_providers.hasMany(providers,{foreignKey: 'product_id'})
-    
-    ({
-        where: {
-            product_id: req.body.product_id,
-        },
-    }); */
-
     //this is a raw query from sequelize
     const providers = await sequelize.query(
         "SELECT * from providers p inner join products_providers pp on p.provider_id = pp.provider_id where pp.product_id = :productId",

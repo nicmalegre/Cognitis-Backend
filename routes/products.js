@@ -3,9 +3,11 @@ const session = require("express-session");
 const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const {getProducts, getProduct, saveProduct, updateProduct, getProductsWFilters, deleteLogical, getProviders,
+const {
+    getProducts, getProduct, saveProduct, updateProduct, getProductsWFilters, deleteLogical, getProviders,
     getProductData,
-    getAllProviders} =require('../controllers/productcontrollers')
+    getAllProviders
+} =require('../controllers/productcontrollers')
 
 
 
@@ -34,7 +36,7 @@ router.route('/saveproduct')
 .post(saveProduct)
 
 //GET ALL THE PROVIDERS FOR ONE PRODUCT
-router.route('/providers')  
+router.route('/providers/getProvider')  
 .post(getProviders)
 
 //GET ALL DATA FROM PRODUCT
@@ -42,7 +44,7 @@ router.route('/productdata/:id_product').
 get(getProductData);
 
 //GET ALL PROVIDERS
-router.route('/allProviders').
+router.route('/providers/allProviders').
 get(getAllProviders);
 
 
