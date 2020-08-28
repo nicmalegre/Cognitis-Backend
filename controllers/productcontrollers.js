@@ -5,10 +5,47 @@ const { Op, QueryTypes, Sequelize } = require("sequelize");
 const { sequelize } = require('../models/products');
 
 //GET all products
-userCrtl.getProducts= async(req,res) => {
+/*userCrtl.getProducts= async(req,res) => {
     const products = await product.findAll(); 
     res.json(products)
+}*/
+
+
+//FUNCTION FOR PAGINATION WHEN WE GET ALL THE PRODUCTS
+const getPagination = (page, size) => { //Esta funcion controla si los parametros page y size fueron pasados
+                                        //en el caso de que no existan, le establece un valor por defecto
+    const limit = size ? +size : 10;//Si existe el parametro le pongo el valor del parametro y sino le pongo 0
+    const offset = page ? page * limit : 0;//Si existe page se setea page*limit y sino 0
+    return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {//Necesitamos devolver total items, los items, total de paginas y pagina actual
+                                            //Esta funcion se encarga de devolver eso
+    const { count: totalProducts, rows: products } = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalProducts / limit);
+    return { totalProducts, products, totalPages, currentPage };
+};
+
+//GET ALL PRODUCTS WITH PAGINATION
+userCrtl.getProducts= async(req,res) => {
+    const page = parseInt(req.params.page)
+    const size = 10; //This is the same of limit. How many items we want to return for query.
+    const { limit, offset } = getPagination(page, size);
+
+    product.findAndCountAll({ limit, offset })
+        .then(data => {
+        const response = getPagingData(data, page, limit);
+        res.send(response);
+        })
+        .catch(err => {
+        res.status(500).send({
+            message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+        });
 }
+
 
 //GET all products with filters
 userCrtl.getProductsWFilters= async(req,res) => {
