@@ -78,17 +78,21 @@ userCrtl.getProductsWFilters= async(req,res) => {
     // });
 
     const products = await sequelize.query(
-        "SELECT * from PRODUCTS where ((:productId = product_id or :productId is null) and (:productName = product_name or :productName is null) and (:productBrand = product_brand  or :productBrand is null) and (:productCategory = category or :productCategory is null) and (:productType = product_type or :productType is null))",
-        {
+        (req.body.product_providers === null) ?
+        "SELECT * from PRODUCTS  where ((:productId = product_id or :productId is null)  and (:productName = product_name or :productName is null) and (:productBrand = product_brand  or :productBrand is null) and (:productCategory = category or :productCategory is null) and (:productType = product_type or :productType is null)) limit 10 "
+         : "SELECT * from PRODUCTS INNER JOIN PRODUCTS_PROVIDERS ON PRODUCTS.product_id = PRODUCTS_PROVIDERS.product_id  where ((:productId = PRODUCTS.product_id or :productId is null)  and (:providerId = PRODUCTS_PROVIDERS.provider_id or :providerId is null)  and (:productName = PRODUCTS.product_name or :productName is null) and (:productBrand = PRODUCTS.product_brand  or :productBrand is null) and (:productCategory = PRODUCTS.category or :productCategory is null) and (:productType = PRODUCTS.product_type or :productType is null)) limit 10"            
+        ,{
             replacements: {
                 productId: req.body.product_id,
                 productName: req.body.product_name,
                 productBrand: req.body.product_brand,
                 productCategory: req.body.category,
-                productType: req.body.product_type
+                productType: req.body.product_type,
+                providerId: req.body.product_providers,
+                
             },
             type: QueryTypes.SELECT
-        }
+        },
     );
     if (products) {
         res.json(products)

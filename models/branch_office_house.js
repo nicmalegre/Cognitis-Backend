@@ -61,14 +61,15 @@ const branch_office_house = db.define(
   }
 );
 
-branch_office_house.hasMany(banks_branch_office, {
-  as: "bank_branch_office",
+branch_office_house.hasMany(banks_branch_office,{
+  as: "bankbranch",
   foreignKey: "branch_office_id",
   sourceKey: "branch_office_id",
 });
 
 banks_branch_office.belongsTo(branch_office_house, {
   foreignKey: "branch_office_id",
+  sourceKey:'branch_office_id'
 });
 
 

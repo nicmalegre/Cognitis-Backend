@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const morgan = require("morgan");
 
 //Initialization
 const db = require("./db");
@@ -15,6 +15,7 @@ app.set('port', process.env.PORT || 3000);
 
 //middlerwares
 app.use(cors());
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
