@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
+const morgan = require("morgan");
 
 //Initialization
 const db = require("./db");
@@ -10,11 +10,12 @@ const app = express();
 
 
 //settings
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 3000);
 
 
 //middlerwares
 app.use(cors());
+app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -43,6 +44,9 @@ app.use("/api/head_house", require("./routes/head_house"))
 
 //products routes
 app.use("/api/products", require("./routes/products"))
+
+//industry routes
+app.use("/api/industry", require('./routes/industry'))
 
 //categories routes
 app.use("/api/categories", require("./routes/category"))

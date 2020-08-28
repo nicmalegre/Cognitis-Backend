@@ -5,10 +5,47 @@ const { Op, QueryTypes, Sequelize } = require("sequelize");
 const { sequelize } = require('../models/products');
 
 //GET all products
-userCrtl.getProducts= async(req,res) => {
+/*userCrtl.getProducts= async(req,res) => {
     const products = await product.findAll(); 
     res.json(products)
+}*/
+
+
+//FUNCTION FOR PAGINATION WHEN WE GET ALL THE PRODUCTS
+const getPagination = (page, size) => { //Esta funcion controla si los parametros page y size fueron pasados
+                                        //en el caso de que no existan, le establece un valor por defecto
+    const limit = size ? +size : 10;//Si existe el parametro le pongo el valor del parametro y sino le pongo 0
+    const offset = page ? page * limit : 0;//Si existe page se setea page*limit y sino 0
+    return { limit, offset };
+};
+
+const getPagingData = (data, page, limit) => {//Necesitamos devolver total items, los items, total de paginas y pagina actual
+                                            //Esta funcion se encarga de devolver eso
+    const { count: totalProducts, rows: products } = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalProducts / limit);
+    return { totalProducts, products, totalPages, currentPage };
+};
+
+//GET ALL PRODUCTS WITH PAGINATION
+userCrtl.getProducts= async(req,res) => {
+    const page = parseInt(req.params.page)
+    const size = 10; //This is the same of limit. How many items we want to return for query.
+    const { limit, offset } = getPagination(page, size);
+
+    product.findAndCountAll({ limit, offset })
+        .then(data => {
+        const response = getPagingData(data, page, limit);
+        res.send(response);
+        })
+        .catch(err => {
+        res.status(500).send({
+            message:
+            err.message || "Some error occurred while retrieving tutorials."
+        });
+        });
 }
+
 
 //GET all products with filters
 userCrtl.getProductsWFilters= async(req,res) => {
@@ -84,52 +121,107 @@ userCrtl.getProduct= async(req,res) => {
 
 //POST FOR SAVE A NEW PRODUCT
 userCrtl.saveProduct= async(req,res) => {
-    //Check if the product exists in the DB
-  product.findOne({
-    where: {
-        product_name: req.body.product_name,
-    },
-  })
-    .then(async(producto) => {
-      //In case the product´s name does not exist in the DB
-      if (!producto) {
-        const newProduct = product.build({
-            product_name: req.body.product_name,
-            product_description: req.body.product_description,
-            product_brand: req.body.product_brand,
-            product_type: req.body.product_type,
-            product_is_dollar: req.body.product_is_dollar,
-            product_in_ecommerce: req.body.product_in_ecommerce,
-            product_unit: req.body.product_unit,
-            product_vol: req.body.product_vol,
-            product_package: req.body.product_package,
-            product_package_customers: req.body.product_package_customers,
-            product_min_margin: req.body.product_min_margin,
-            product_max_margin: req.body.product_max_margin,  
-            product_price: req.body.product_price,  
-            product_bonification: req.body.product_bonification,
-            product_price_bonification: req.body.product_price_bonification,    
-            product_freight_cost: req.body.product_freight_cost,    
-            product_accountant_type: req.body.product_accountant_type,    
-            product_accountant_account: req.body.product_accountant_account,
-            product_size: req.body.product_size,
-            product_color: req.body.product_color,
-            category: req.body.category,
-            //Estos dos campos faltan mandar
-            products_industry_id: req.body.products_industry_id,//req.body.products_industry_id,   
-            product_branch_office_id: 41,
-        });
-        newProduct.save();z
-        res.send("Product saved on the db.");
-      }
-      // If the product´s name exists in BD, please reply error message
-      else {
-        res.json({ error: "The Product already exists on the db." });
-      }
-    })
-    .catch((err) => {
-      res.send("error:" + err);
-    });
+    
+    const call = 'call GuardarProducto(:prodName,:descrip,:brand,:typeProd,:isDollar,:ecommerce,:unit,:vol,:package,:packageCustomers,:minMargin,:maxMargin,:listPrice,:bonification,:priceBonification,:freightCost,:accountantType,:accountantAccount,:productMaterial,:origin,:shipping,:warranty,:barcode,:stat,:maker,:countryTax,:countryWithTax,:category,:productBranchOffice,:productIndustryName)'
+    const insertResult = await sequelize.query(
+        `${call}`,
+        {
+            replacements: {
+                prodName:req.body.product_name,
+                descrip: req.body.product_description,
+                brand: req.body.product_brand,
+                typeProd: req.body.product_type,
+                isDollar: req.body.product_is_dollar,
+                ecommerce: req.body.product_in_ecommerce,
+                unit:req.body.product_unit,
+                vol: req.body.product_vol,
+                package: req.body.product_package,
+                packageCustomers: req.body.product_package_customers,
+                minMargin:req.body.product_min_margin,
+                maxMargin:req.body.product_max_margin,
+                listPrice : 10,
+                bonification: req.body.product_bonification,
+                freightCost: req.body.product_freight_cost,
+                priceBonification: req.body.product_price_bonification,
+                accountantType: req.body.product_accountant_type,
+                accountantAccount: req.body.product_accountant_account,
+                productMaterial: req.body.product_material,
+                origin: req.body.product_origin,
+                shipping: req.body.product_shipping,
+                warranty: req.body.product_warranty,
+                barcode: req.body.product_barcode,
+                stat: req.body.product_status,
+                maker: "Yo lo hice",
+                countryTax: "Lobo De Mar",
+                countryWithTax: "Lobo De Mar 35",
+                category: req.body.category,
+                //productsIndustryId: req.body.products_industry_id,
+                productBranchOffice: 41,
+                productIndustryName: req.body.products_industry_name
+            },
+            type: QueryTypes.SELECT,
+        }
+    );
+    
+    const lastId = insertResult[0][0].lastindex;
+
+    if(req.body.products_industry_name === 'retail'){
+    const insert = 'insert into products_retail(product_id,product_line,product_seed,product_service,product_serie,product_NTecnico,product_status,product_technical_data,product_model)';
+    const val = 'values(:prodId,:productLine,:productSeed,:prodService,:productSerie,:productNTecnico,:productStatus,:productTD,:productModel)'
+    const insertResult2 = await sequelize.query(
+        `${insert} ${val}`,
+        {
+            replacements: {
+                prodId: lastId,
+                productLine: req.body.product_line,
+                productSeed: req.body.product_seed,
+                prodService: req.body.product_serie,
+                productSerie: req.body.product_serie,
+                productNTecnico: req.body.product_NTecnico,
+                productStatus:req.body.product_status,
+                productTD: req.body.product_technical_data,
+                productModel: req.body.product_model
+            },
+            type: QueryTypes.INSERT,
+        })
+    }
+    else if(req.body.products_industry_name === 'indumentary'){
+        const insert = 'insert into products_indumentary(product_id,product_curve,product_color,product_season,product_status)';
+        const val = 'values(:prodId,:productCurve,:productColor,:productSeason,:productStatus)'
+        const insertResult2 = await sequelize.query(
+            `${insert} ${val}`,
+            {
+            replacements: {
+                prodId: lastId,
+                productCurve: req.body.product_curve,
+                productColor: req.body.product_color,
+                productSeason: req.body.product_season,
+                productStatus: req.body.product_status,
+            },
+            type: QueryTypes.INSERT,
+        })
+    }
+
+    const insert3 = 'insert into products_providers(product_id,provider_id,product_provider_status)';
+    const valuesInsertPdPv = 'values(:prodId,:provId,:prodStatus)';
+    const enviarProv = async() => {
+        const sendindg = async() => {
+            await req.body.proveedores.map(async value => {
+            const insertPdPv = await sequelize.query(
+                `${insert3} ${valuesInsertPdPv}`,
+                {
+                replacements:{
+                    prodId: lastId,
+                    provId: value.provider_id,
+                    prodStatus: 1,
+                }
+            });
+        })}
+
+        await sendindg();
+        res.send('Finalizado');
+    }
+    enviarProv();    
 }
 
 
