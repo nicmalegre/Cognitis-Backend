@@ -36,7 +36,7 @@ router.route('/saveproduct')
 .post(saveProduct)
 
 //GET ALL THE PROVIDERS FOR ONE PRODUCT
-router.route('/providers/getProvider')  
+router.route('/getProvider')  
 .post(getProviders)
 
 //GET ALL DATA FROM PRODUCT
@@ -44,7 +44,7 @@ router.route('/productdata/:id_product').
 get(getProductData);
 
 //GET ALL PROVIDERS
-router.route('/providers/allProviders').
+router.route('/allProviders').
 get(getAllProviders);
 
 
