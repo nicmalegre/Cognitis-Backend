@@ -42,7 +42,7 @@ router.route('/productdata/:id_product').
 get(getProductData);
 
 //GET ALL PROVIDERS
-router.route('/allProviders').
+router.route('/allproviders').
 get(getAllProviders);
 
 
