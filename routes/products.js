@@ -3,15 +3,17 @@ const session = require("express-session");
 const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const {getProducts, getProduct, saveProduct, updateProduct, getProductsWFilters, deleteLogical, getProviders,
+const {
+    getProducts, getProduct, saveProduct, updateProduct, getProductsWFilters, deleteLogical, getProviders,
     getProductData,
-    getAllProviders} =require('../controllers/productcontrollers')
+    getAllProviders
+} =require('../controllers/productcontrollers')
 
 
 
-//GET ALL THE PRODUCTS. The method need a page number.
-router.route('/:page')  
-.get(getProducts)
+// //GET ALL THE PRODUCTS. The method need a page number.
+// router.route('/:page')  
+// .get(getProducts)
 
 //When you go to 'http://localhost:3000/api/products/filters' you will get all the products with filters stored in the database
 router.route('/filters')  
@@ -34,16 +36,18 @@ router.route('/saveproduct')
 .post(saveProduct)
 
 //GET ALL THE PROVIDERS FOR ONE PRODUCT
-router.route('/providers')  
+router.route('/getProvider')  
 .post(getProviders)
+
+//GET ALL PROVIDERS
+router.route('/allproviders').
+get(getAllProviders);
 
 //GET ALL DATA FROM PRODUCT
 router.route('/productdata/:id_product').
 get(getProductData);
 
-//GET ALL PROVIDERS
-router.route('/allProviders').
-get(getAllProviders);
+
 
 
 

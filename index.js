@@ -10,7 +10,7 @@ const app = express();
 
 
 //settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 
 
 //middlerwares
@@ -50,7 +50,6 @@ app.use("/api/industry", require('./routes/industry'))
 
 //categories routes
 app.use("/api/categories", require("./routes/category"))
-
 
 //starting the app
 app.listen(app.get('port'), () => {

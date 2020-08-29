@@ -1,6 +1,6 @@
 const company_house = require("../models/company_house");
 const banks_company_house = require("../models/banks_company_house");
-const industry = require("../models/industry")
+const industry = require("../models/industry");
 const { head } = require("../routes/users");
 const banks_head_house = require("../models/banks_head_house");
 
@@ -15,17 +15,17 @@ exports.getCompanyById = async (req, res) => {
   const company = await company_house.findOne({
     where: {
       company_id: req.params.company_id,
-      company_status:1
+      company_status: 1,
     },
-    include: ['bankcompany', 'industry']
-  })
+    include: ["bankcompany", "industry"],
+  });
 
-  if(company){
-    res.send(company)
-  }else{
-    res.send('no se encontraron comapanias con ese id')
+  if (company) {
+    res.send(company);
+  } else {
+    res.send("no se encontraron comapanias con ese id");
   }
-}
+};
 
 //CREATE NEW COMPANY FOR A HEAD_HOUSE
 exports.createCompany = (req, res) => {
@@ -60,7 +60,7 @@ exports.createCompany = (req, res) => {
           company_business_name,
           company_country,
           company_email,
-          company_tel:`${country_code}-${area_code}-${company_tel}`,
+          company_tel: `${country_code}-${area_code}-${company_tel}`,
           company_fax,
           company_house_industry_id,
           head_house_id,
@@ -77,11 +77,15 @@ exports.createCompany = (req, res) => {
         await Newbank_head_house.save();
         res.send({
           message: "Compañia registrada correctamente",
+          cuit_already_used: false,
         });
       }
       // If cuil exists in BD, please reply error message
       else {
-        res.json({ error: "Compañia ya registrada" });
+        res.send({
+          message: "El cuit ingresado ya está siendo usado por otra compania",
+          cuit_already_used: true,
+        });
       }
     })
     .catch((error) => {
@@ -108,7 +112,7 @@ exports.getCompanies_headhouse = async (req, res) => {
       where: {
         //en el where es lo mismo que head_house_id : head_house_id
         head_house_id,
-        company_status:1
+        company_status: 1,
       },
     });
     res.json({ companies_house });
@@ -202,8 +206,7 @@ exports.updateCompanyhouse = async (req, res) => {
 
   //exist bank and company searched?
   if (companyHouse && bankCompanyHouse) {
-
-    //get data recieved 
+    //get data recieved
     const {
       area_code,
       country_code,
@@ -230,7 +233,7 @@ exports.updateCompanyhouse = async (req, res) => {
       company_email,
       company_tel: `${country_code}-${area_code}-${company_tel}`,
       company_fax,
-      company_house_industry_id: parseInt(company_house_industry_id)
+      company_house_industry_id: parseInt(company_house_industry_id),
     });
 
     //update company bank data
@@ -252,7 +255,8 @@ exports.updateCompanyhouse = async (req, res) => {
     }
   } else {
     res.send({
-      message: "ocurrio un error al editar, no se encontró referencia a la compania o al banco",
+      message:
+        "ocurrio un error al editar, no se encontró referencia a la compania o al banco",
     });
   }
 };
