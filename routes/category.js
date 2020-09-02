@@ -3,7 +3,7 @@ const session = require("express-session");
 const db = require("../db");
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const {getCategories, getCategory} =require('../controllers/categorycontrollers.js')
+const {getCategories, getCategory} =require('../controllers/categorycontrollers')
 
 
 

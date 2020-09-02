@@ -15,7 +15,7 @@ categoryCrtl.getCategory= async(req,res) => {
         }
     })
     if(newcategory){
-        res.send(newcategory)
+        res.json(newcategory)
     }else
     {
         res.send("La categoria no fue encontrada.")
