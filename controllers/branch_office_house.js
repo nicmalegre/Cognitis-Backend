@@ -119,16 +119,18 @@ exports.updateBranchOffice = async (req, res) => {
   });
 
   if (branchOffice && bankBranchOffice) {
-    const updateBranchOffice = await branchOffice.update({
-      branch_office_name: req.body.name,
-      branch_office_cuit: req.body.cuit,
-      branch_office_business_name: req.body.business_name,
-      head_country: req.body.country,
-      branch_office_email: req.body.email,
-      branch_tel: `${req.body.country_code}-${req.body.area_code}-${req.body.branch_tel}`,
-      branch_office_fax: req.body.fax,
-      branch_office_address: req.body.address,
-    });
+    const updateBranchOffice = await branchOffice.update(
+      {
+        branch_office_name: req.body.name,
+        branch_office_cuit: req.body.cuit,
+        branch_office_business_name: req.body.business_name,
+        head_country: req.body.country,
+        branch_office_email: req.body.email,
+        branch_tel: `${req.body.country_code}-${req.body.area_code}-${req.body.tel}`,
+        branch_office_fax: req.body.fax,
+        branch_office_address: req.body.address,
+      },
+    );
 
     const updateBankBranchOffice = await bankBranchOffice.update({
       bank_branch_office_name: req.body.bank_name,

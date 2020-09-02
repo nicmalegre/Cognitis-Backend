@@ -122,7 +122,7 @@ userCrtl.getProduct= async(req,res) => {
 //POST FOR SAVE A NEW PRODUCT
 userCrtl.saveProduct= async(req,res) => {
     
-    const call = 'call GuardarProducto(:prodName,:descrip,:brand,:typeProd,:isDollar,:ecommerce,:unit,:vol,:package,:packageCustomers,:minMargin,:maxMargin,:listPrice,:bonification,:priceBonification,:freightCost,:accountantType,:accountantAccount,:productMaterial,:origin,:shipping,:warranty,:barcode,:stat,:maker,:countryTax,:countryWithTax,:category,:productBranchOffice,:productIndustryName)'
+    const call = 'call GuardarProducto(:prodName,:descrip,:brand,:typeProd,:isDollar,:ecommerce,:unit,:vol,:package,:packageCustomers,:minMargin,:maxMargin,:listPrice,:bonification,:priceBonification,:freightCost,:accountantType,:accountantAccount,:productMaterial,:origin,:shipping,:warranty,:barcode,:stat,:maker,:countryTax,:countryWithTax,:category,:productBranchOffice,:productIndustryName,:productCostNeto)'
     const insertResult = await sequelize.query(
         `${call}`,
         {
@@ -151,13 +151,14 @@ userCrtl.saveProduct= async(req,res) => {
                 warranty: req.body.product_warranty,
                 barcode: req.body.product_barcode,
                 stat: req.body.product_status,
-                maker: "Yo lo hice",
-                countryTax: "Lobo De Mar",
-                countryWithTax: "Lobo De Mar 35",
+                maker: req.body.product_maker,
+                countryTax: req.body.product_country_tax,
+                countryWithTax: req.body.product_cost_with_tax,
                 category: req.body.category,
                 //productsIndustryId: req.body.products_industry_id,
                 productBranchOffice: 41,
-                productIndustryName: req.body.products_industry_name
+                productIndustryName: req.body.products_industry_name,
+                productCostNeto: req.body.product_cost_neto_repo
             },
             type: QueryTypes.SELECT,
         }
